@@ -1,0 +1,34 @@
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="quick-info-bar" role="banner">
+  <strong>Sundays:</strong> {{ .Site.Params.serviceTimes.bibleClass }} & {{ .Site.Params.serviceTimes.worship }}
+  <span aria-hidden="true">|</span>
+  <a href="tel:{{ .Site.Params.phone }}" aria-label="Call us at {{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
+</div>
+
+<header class="site-header">
+  <nav class="nav-container" aria-label="Main navigation">
+    <a href="/" class="logo" aria-label="{{ .Site.Title }} - Home">
+      <img src="/images/logo-main.png" alt="" width="60" height="60" aria-hidden="true">
+      <span class="logo-text">South Hills<br>Church of Christ</span>
+    </a>
+
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-menu" onclick="const expanded = this.getAttribute('aria-expanded') === 'true'; this.setAttribute('aria-expanded', !expanded); this.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu'); document.getElementById('main-menu').classList.toggle('active');">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+
+    <ul class="nav-menu" id="main-menu" role="menubar">
+      {{ range .Site.Menus.main }}
+        <li class="nav-item" role="none">
+          <a href="{{ .URL }}"
+             role="menuitem"
+             class="nav-link{{ if $.IsMenuCurrent "main" . }} active{{ end }}"
+             {{ if $.IsMenuCurrent "main" . }}aria-current="page"{{ end }}
+             {{ with .Params.external }}target="_blank" rel="noopener" aria-label="{{ $.Name }} (opens in new tab)"{{ end }}>
+            {{ .Name }}
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </nav>
+</header>

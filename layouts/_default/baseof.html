@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Primary Meta Tags -->
+  <title>{{ if .IsHome }}{{ .Site.Title }} | Church in Helena, Montana{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="keywords" content="church Helena Montana, Church of Christ Helena, Helena MT church, Christian church Helena, Sunday worship Helena MT, Bible study Helena Montana">
+  <meta name="author" content="{{ .Site.Title }}">
+
+  <!-- Geo Tags for Local SEO -->
+  <meta name="geo.region" content="US-MT">
+  <meta name="geo.placename" content="Helena">
+  <meta name="geo.position" content="{{ .Site.Params.latitude }};{{ .Site.Params.longitude }}">
+  <meta name="ICBM" content="{{ .Site.Params.latitude }}, {{ .Site.Params.longitude }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{{ if .IsHome }}website{{ else if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} - Church in Helena, Montana{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:image" content="{{ .Site.BaseURL }}images/og-image.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{ .Permalink }}">
+  <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Church in Helena, Montana{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="twitter:image" content="{{ .Site.BaseURL }}images/og-image.jpg">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ .Permalink }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/logo-main.png">
+  <link rel="apple-touch-icon" href="/images/logo-main.png">
+
+  <!-- Styles -->
+  {{ $styles := resources.Get "css/main.css" | minify }}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}">
+
+  <!-- Schema.org Structured Data -->
+  {{ partial "schema.html" . }}
+
+  {{ block "head" . }}{{ end }}
+</head>
+<body>
+  {{ partial "header.html" . }}
+
+  <main id="main-content" tabindex="-1">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

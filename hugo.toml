@@ -1,0 +1,68 @@
+baseURL = 'https://www.southhillscoc.com/'
+languageCode = 'en-us'
+title = 'South Hills Church of Christ'
+
+[params]
+  description = 'A welcoming Christian community in Helena, Montana. Revealing God, Renewing Lives, and Rejoicing Together.'
+  tagline = 'Revealing God, Renewing Lives, Rejoicing Together'
+  phone = '(406) 442-8950'
+  email = 'southhillschurchofchrist@gmail.com'
+  officeEmail = 'office@southhillscoc.org'
+  address = '2294 Deerfield Ln, Helena, MT 59601'
+  latitude = 46.570233
+  longitude = -111.9714227
+  youtubeChannel = '@southhillscoc'
+  # Cloudflare Turnstile site key (use test key for development)
+  turnstileSiteKey = '1x00000000000000000000AA'
+
+[params.serviceTimes]
+  bibleClass = '9:30 AM'
+  worship = '10:30 AM'
+
+[params.social]
+  youtube = 'https://www.youtube.com/@southhillscoc'
+  # facebook = ''
+
+[params.giving]
+  url = 'https://give.tithe.ly/?formId=cd988f16-9c1f-4906-a76e-76e42be71c80'
+
+[menu]
+  [[menu.main]]
+    identifier = 'visit'
+    name = 'Visit'
+    url = '/visit/'
+    weight = 1
+  [[menu.main]]
+    identifier = 'about'
+    name = 'About'
+    url = '/about/'
+    weight = 2
+  [[menu.main]]
+    identifier = 'ministries'
+    name = 'Ministries'
+    url = '/ministries/'
+    weight = 3
+  [[menu.main]]
+    identifier = 'events'
+    name = 'Events'
+    url = '/events/'
+    weight = 4
+  [[menu.main]]
+    identifier = 'contact'
+    name = 'Contact'
+    url = '/contact/'
+    weight = 5
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Sitemap configuration
+[sitemap]
+  changefreq = 'weekly'
+  filename = 'sitemap.xml'
+  priority = 0.5
+
+# Enable robots.txt generation
+enableRobotsTXT = true

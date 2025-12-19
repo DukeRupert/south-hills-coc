@@ -1,0 +1,59 @@
+{{ define "main" }}
+<div class="page-header">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Description }}</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    {{ .Content }}
+
+    <div class="ministry-category">
+      <h2>Growth & Fellowship</h2>
+      <div class="card-grid">
+        {{ range .Site.Data.ministries.growth }}
+        <div class="card">
+          <div class="card-content">
+            <h3>{{ .name }}</h3>
+            <p>{{ .description }}</p>
+            {{ with .contact }}<p><strong>Contact:</strong> <a href="mailto:{{ . }}">{{ . }}</a></p>{{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+
+    <div class="ministry-category">
+      <h2>Next Generation</h2>
+      <div class="card-grid">
+        {{ range .Site.Data.ministries.nextGeneration }}
+        <div class="card">
+          <div class="card-content">
+            <h3>{{ .name }}</h3>
+            <p>{{ .description }}</p>
+            {{ with .contact }}<p><strong>Contact:</strong> <a href="mailto:{{ . }}">{{ . }}</a></p>{{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+
+    <div class="ministry-category">
+      <h2>Service & Support</h2>
+      <div class="card-grid">
+        {{ range .Site.Data.ministries.service }}
+        <div class="card">
+          <div class="card-content">
+            <h3>{{ .name }}</h3>
+            <p>{{ .description }}</p>
+            {{ with .contact }}<p><strong>Contact:</strong> <a href="mailto:{{ . }}">{{ . }}</a></p>{{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,29 @@
+{
+    admin off
+    auto_https off
+}
+
+:{$PORT:80} {
+    root * /srv
+    file_server
+
+    # Proxy API requests to Go backend
+    handle /api/* {
+        reverse_proxy localhost:8080
+    }
+
+    try_files {path} {path}/ /index.html
+
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+
+    encode gzip zstd
+
+    log {
+        output stdout
+        format console
+    }
+}

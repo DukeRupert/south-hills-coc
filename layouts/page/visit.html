@@ -1,0 +1,88 @@
+{{ define "main" }}
+<div class="page-header">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Description }}</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="two-column">
+      <div>
+        <h2>Service Times</h2>
+        <div class="service-times-box">
+          <p><strong>Sunday Bible Class:</strong> {{ .Site.Params.serviceTimes.bibleClass }}</p>
+          <p><strong>Sunday Worship:</strong> {{ .Site.Params.serviceTimes.worship }}</p>
+        </div>
+
+        <h2 style="margin-top: 2rem;">Location</h2>
+        <address style="font-size: 1.1rem;">
+          {{ .Site.Params.address }}<br>
+          <a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
+        </address>
+
+        <p style="margin-top: 1rem;">
+          <a href="https://www.google.com/maps/dir/?api=1&destination={{ .Site.Params.latitude }},{{ .Site.Params.longitude }}" target="_blank" rel="noopener" class="btn btn-primary">Get Directions</a>
+        </p>
+      </div>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.123456789!2d{{ .Site.Params.longitude }}!3d{{ .Site.Params.latitude }}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDbCsDM0JzEyLjgiTiAxMTHCsDU4JzE3LjEiVw!5e0!3m2!1sen!2sus!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>What to Expect</h2>
+      <p>Here's what a typical Sunday morning looks like at South Hills.</p>
+    </div>
+
+    <div class="expect-grid">
+      <div class="expect-item">
+        <div class="expect-icon">🎵</div>
+        <h3>A Cappella Singing</h3>
+        <p>We sing spiritual songs together without instrumental accompaniment, with lyrics displayed on screens for everyone to follow.</p>
+      </div>
+
+      <div class="expect-item">
+        <div class="expect-icon">🍞</div>
+        <h3>Lord's Supper</h3>
+        <p>Following a brief message about Jesus, unleavened bread and grape juice are distributed. This is a time of reflection on Christ's sacrifice.</p>
+      </div>
+
+      <div class="expect-item">
+        <div class="expect-icon">📖</div>
+        <h3>Sermon</h3>
+        <p>A 20-30 minute Bible-based message from our minister, focused on how Scripture applies to our daily lives.</p>
+      </div>
+
+      <div class="expect-item">
+        <div class="expect-icon">🤝</div>
+        <h3>Fellowship</h3>
+        <p>After the service, we invite you to stay and connect with our church family. We love meeting new faces!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="two-column reverse">
+      <div>
+        <h2>Families Welcome</h2>
+        <p>We love children at South Hills! Kids are always welcome in our worship services. We also offer age-appropriate children's church after communion for those who prefer it.</p>
+        <p>Your family's safety is important to us. We maintain security measures during services with attention to child and family protection.</p>
+
+        <h2 style="margin-top: 2rem;">Next Steps</h2>
+        <p>If you're exploring Christian faith or want to learn more about our church, we offer <strong>Compass Classes</strong> - introductory courses covering the foundations of Christianity and what it means to follow Jesus.</p>
+      </div>
+      <div>
+        <img src="/images/worship/congregation.jpg" alt="Church fellowship" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);">
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

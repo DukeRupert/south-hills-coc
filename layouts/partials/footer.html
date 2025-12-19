@@ -1,0 +1,40 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-container">
+    <div class="footer-section">
+      <img src="/images/logo-main.png" alt="" class="footer-logo" width="80" height="80" aria-hidden="true">
+      <p class="footer-tagline">{{ .Site.Params.tagline }}</p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Service Times</h3>
+      <p><strong>Sunday Bible Class:</strong> <time>{{ .Site.Params.serviceTimes.bibleClass }}</time></p>
+      <p><strong>Sunday Worship:</strong> <time>{{ .Site.Params.serviceTimes.worship }}</time></p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <address>
+        <p>{{ .Site.Params.address }}</p>
+        <p><a href="tel:{{ .Site.Params.phone }}" aria-label="Call {{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a></p>
+        <p><a href="mailto:{{ .Site.Params.email }}" aria-label="Email {{ .Site.Params.email }}">{{ .Site.Params.email }}</a></p>
+      </address>
+    </div>
+
+    <nav class="footer-section" aria-label="Footer navigation">
+      <h3>Connect</h3>
+      <ul class="social-links">
+        {{ with .Site.Params.social.youtube }}
+          <li><a href="{{ . }}" target="_blank" rel="noopener" aria-label="Watch Online on YouTube (opens in new tab)">Watch Online</a></li>
+        {{ end }}
+        {{ with .Site.Params.giving.url }}
+          <li><a href="{{ . }}" target="_blank" rel="noopener" aria-label="Give Online (opens in new tab)">Give Online</a></li>
+        {{ end }}
+        <li><a href="/contact/">Contact Us</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {{ now.Year }} South Hills Church of Christ. All rights reserved.</p>
+  </div>
+</footer>

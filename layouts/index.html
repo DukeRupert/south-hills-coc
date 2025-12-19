@@ -1,0 +1,116 @@
+{{ define "main" }}
+<section class="hero">
+  <p class="hero-location">Helena, Montana</p>
+  <h1>South Hills Church of Christ</h1>
+  <p class="hero-tagline">{{ .Site.Params.tagline }}</p>
+
+  <div class="hero-info">
+    <div class="hero-info-item">
+      <strong>Sundays</strong>
+      <span>{{ .Site.Params.serviceTimes.bibleClass }} Bible Class</span>
+      <span>{{ .Site.Params.serviceTimes.worship }} Worship</span>
+    </div>
+    <div class="hero-info-divider"></div>
+    <div class="hero-info-item">
+      <strong>Location</strong>
+      <span>{{ .Site.Params.address }}</span>
+    </div>
+  </div>
+
+  <div class="hero-buttons">
+    <a href="/visit/" class="btn btn-primary">Plan Your Visit</a>
+    <a href="https://www.google.com/maps/dir/?api=1&destination={{ .Site.Params.latitude }},{{ .Site.Params.longitude }}" target="_blank" rel="noopener" class="btn btn-secondary">Get Directions</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>What to Expect</h2>
+      <p>Our Sunday gatherings incorporate singing, prayer, communion participation, and Bible-focused sermons.</p>
+    </div>
+
+    <div class="expect-grid">
+      <div class="expect-item">
+        <div class="expect-icon">🎵</div>
+        <h3>A Cappella Singing</h3>
+        <p>We sing spiritual songs together without instrumental accompaniment, with lyrics displayed on screens.</p>
+      </div>
+
+      <div class="expect-item">
+        <div class="expect-icon">🍞</div>
+        <h3>Lord's Supper</h3>
+        <p>Following a brief message about Jesus, unleavened bread and grape juice are distributed to congregants.</p>
+      </div>
+
+      <div class="expect-item">
+        <div class="expect-icon">📖</div>
+        <h3>Sermon</h3>
+        <p>A 20-30 minute Bible-based message from our minister focused on practical application.</p>
+      </div>
+
+      <div class="expect-item">
+        <div class="expect-icon">🤝</div>
+        <h3>Fellowship</h3>
+        <p>Post-service time for members and visitors to connect and build relationships.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="two-column">
+      <div>
+        <h2>Join Us This Sunday</h2>
+        <p>We're a community pulling together to love God, to love His church, and to love the people He has created. Whether you're exploring faith for the first time or looking for a church home, you're welcome here.</p>
+
+        <div class="service-times-box">
+          <h3>Service Times</h3>
+          <p><strong>Bible Class:</strong> {{ .Site.Params.serviceTimes.bibleClass }}</p>
+          <p><strong>Worship Service:</strong> {{ .Site.Params.serviceTimes.worship }}</p>
+        </div>
+
+        <p style="margin-top: 1.5rem;">
+          <a href="/visit/" class="btn btn-primary">Plan Your Visit</a>
+        </p>
+      </div>
+      <div>
+        <img src="/images/worship/congregation.jpg" alt="Worship gathering at South Hills Church of Christ" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Get Connected</h2>
+      <p>There are many ways to get involved in our church family.</p>
+    </div>
+
+    <div class="card-grid">
+      <a href="/ministries/" class="card">
+        <div class="card-content">
+          <h3>Ministries</h3>
+          <p>Find your place in our Women's, Men's, Youth, and Children's ministries, or join our service opportunities.</p>
+        </div>
+      </a>
+
+      <a href="/about/leadership/" class="card">
+        <div class="card-content">
+          <h3>Meet Our Team</h3>
+          <p>Get to know the staff, elders, and deacons who serve our congregation.</p>
+        </div>
+      </a>
+
+      <a href="/contact/" class="card">
+        <div class="card-content">
+          <h3>Contact Us</h3>
+          <p>Have questions? We'd love to hear from you. Reach out anytime.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+{{ end }}

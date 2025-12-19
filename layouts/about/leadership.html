@@ -1,0 +1,49 @@
+{{ define "main" }}
+<div class="page-header">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    {{ .Content }}
+
+    <h2>Staff</h2>
+    <div class="leadership-grid">
+      {{ range .Site.Data.leadership.staff }}
+      <div class="leader-card">
+        <img src="{{ .image }}" alt="{{ .name }}" class="leader-image">
+        <h3 class="leader-name">{{ .name }}</h3>
+        <p class="leader-role">{{ .role }}</p>
+        {{ with .bio }}<p class="leader-bio">{{ . }}</p>{{ end }}
+        {{ with .email }}<p><a href="mailto:{{ . }}">{{ . }}</a></p>{{ end }}
+      </div>
+      {{ end }}
+    </div>
+
+    <h2 style="margin-top: 3rem;">Shepherds (Elders)</h2>
+    <div class="leadership-grid">
+      {{ range .Site.Data.leadership.elders }}
+      <div class="leader-card">
+        <img src="{{ .image }}" alt="{{ .name }}" class="leader-image">
+        <h3 class="leader-name">{{ .name }}</h3>
+        <p class="leader-role">Elder</p>
+      </div>
+      {{ end }}
+    </div>
+
+    <h2 style="margin-top: 3rem;">Deacons</h2>
+    <div class="leadership-grid">
+      {{ range .Site.Data.leadership.deacons }}
+      <div class="leader-card">
+        <img src="{{ .image }}" alt="{{ .name }}" class="leader-image">
+        <h3 class="leader-name">{{ .name }}</h3>
+        <p class="leader-role">{{ .department }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

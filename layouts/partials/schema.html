@@ -1,0 +1,53 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Church",
+  "name": "{{ .Site.Title }}",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "telephone": "{{ .Site.Params.phone }}",
+  "email": "{{ .Site.Params.email }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2294 Deerfield Ln",
+    "addressLocality": "Helena",
+    "addressRegion": "MT",
+    "postalCode": "59601",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": {{ .Site.Params.latitude }},
+    "longitude": {{ .Site.Params.longitude }}
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "09:30",
+      "closes": "12:00",
+      "description": "Bible Class at 9:30 AM, Worship Service at 10:30 AM"
+    }
+  ],
+  "sameAs": [
+    {{ with .Site.Params.social.youtube }}"{{ . }}"{{ end }}
+  ],
+  "image": "{{ .Site.BaseURL }}images/logo-main.png",
+  "priceRange": "Free"
+}
+</script>
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ .Site.Title }}",
+  "url": "{{ .Site.BaseURL }}",
+  "description": "{{ .Site.Params.description }}",
+  "publisher": {
+    "@type": "Church",
+    "name": "{{ .Site.Title }}"
+  }
+}
+</script>
+{{ end }}
