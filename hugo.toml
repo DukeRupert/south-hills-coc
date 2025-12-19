@@ -12,8 +12,8 @@ title = 'South Hills Church of Christ'
   latitude = 46.570233
   longitude = -111.9714227
   youtubeChannel = '@southhillscoc'
-  # Cloudflare Turnstile site key (use test key for development)
-  turnstileSiteKey = '1x00000000000000000000AA'
+  # Cloudflare Turnstile site key
+  turnstileSiteKey = '0x4AAAAAACHhuM2lhHmWLq04'
 
 [params.serviceTimes]
   bibleClass = '9:30 AM'
