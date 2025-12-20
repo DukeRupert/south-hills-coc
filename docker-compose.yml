@@ -10,6 +10,6 @@ services:
       - POSTMARK_TOKEN=${POSTMARK_TOKEN}
       - FROM_EMAIL=${FROM_EMAIL}
       - TO_EMAIL=${TO_EMAIL}
-      - ALLOWED_ORIGIN=${ALLOWED_ORIGIN:-https://www.southhillscoc.com}
+      - ALLOWED_ORIGIN=${ALLOWED_ORIGIN:-https://www.southhillscoc.org}
       - TURNSTILE_SECRET=${TURNSTILE_SECRET}
     restart: unless-stopped

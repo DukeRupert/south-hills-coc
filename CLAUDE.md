@@ -62,7 +62,7 @@ Required for Go API:
 - `POSTMARK_TOKEN` - Postmark API key for sending emails
 - `FROM_EMAIL` - Sender email (must be verified in Postmark)
 - `TO_EMAIL` - Recipient email
-- `ALLOWED_ORIGIN` - CORS origin (must match production domain exactly, e.g., `https://www.southhillscoc.com`)
+- `ALLOWED_ORIGIN` - CORS origin (must match production domain exactly, e.g., `https://www.southhillscoc.org`)
 - `TURNSTILE_SECRET` - Cloudflare Turnstile secret key
 
 Turnstile test keys for localhost development:
