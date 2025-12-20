@@ -110,11 +110,11 @@ document.getElementById('contact-form').addEventListener('submit', async functio
   status.textContent = '';
 
   const formData = {
-    name: form.name.value,
-    email: form.email.value,
-    phone: form.phone.value,
-    message: form.message.value,
-    'cf-turnstile-response': form.querySelector('[name="cf-turnstile-response"]')?.value
+    name: form.elements.name.value,
+    email: form.elements.email.value,
+    phone: form.elements.phone.value,
+    message: form.elements.message.value,
+    'cf-turnstile-response': form.querySelector('[name="cf-turnstile-response"]')?.value || ''
   };
 
   try {
