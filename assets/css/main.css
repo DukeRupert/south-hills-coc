@@ -149,8 +149,8 @@ img {
 }
 
 .logo img {
-  width: 60px;
   height: 60px;
+  width: auto;
   object-fit: contain;
 }
 
@@ -239,6 +239,8 @@ img {
 }
 
 .footer-logo {
+  height: 60px;
+  width: auto;
   margin-bottom: var(--spacing-sm);
   background: white;
   padding: 10px;
