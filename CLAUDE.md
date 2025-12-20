@@ -4,23 +4,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hugo static site with optional Go API backend, deployed via Docker to a VPS using GitHub Actions. The architecture uses a two-Caddy setup: an outer Caddy on the host for HTTPS/TLS termination, and an inner Caddy in the container for static file serving and API proxying.
+Hugo static site for South Hills Church of Christ (Helena, MT) with a Go API backend for the contact form. Deployed via Docker to a VPS using GitHub Actions. Uses a two-Caddy architecture: outer Caddy on host for HTTPS/TLS, inner Caddy in container for static serving and API proxying.
 
 ## Build Commands
 
 ```bash
-# Local Hugo development
-hugo server -D                    # Start dev server with drafts
+# Hugo development
+hugo server -D                    # Dev server with drafts at localhost:1313
 hugo --gc --minify               # Production build (outputs to public/)
 
 # Docker
 docker build -t south-hills-coc . # Build container
-docker compose up -d              # Run with docker-compose
-docker compose logs               # View container logs
+docker compose up -d              # Run locally at localhost:8082
+docker compose logs               # View logs
 
-# Go API (if using api/ directory)
-cd api && go mod download         # Install Go dependencies
+# Go API
 cd api && go build -o contact-api # Build API binary
+cd api && go run .                # Run API directly (for testing)
 ```
 
 ## Architecture
@@ -32,32 +32,62 @@ Internet → Outer Caddy (HTTPS) → Docker Container (HTTP:8082)
 ```
 
 ### Key Files
-- `hugo.toml` - Hugo configuration (baseURL, params, Turnstile site key)
-- `Caddyfile` - Inner Caddy config (static serving, API reverse proxy)
-- `Dockerfile` - Multi-stage build (Hugo → Go → Caddy final image)
-- `docker-entrypoint.sh` - Starts Go API (if present) then Caddy
-- `docker-compose.yml` - Container orchestration with env vars
+- `hugo.toml` - Site config, params (phone, email, address, service times), Turnstile site key
+- `Caddyfile` - Inner Caddy: static serving from `/srv`, reverse proxy `/api/*` to Go API
+- `Dockerfile` - Three-stage build: Hugo → Go → Caddy final image
+- `docker-entrypoint.sh` - Starts Go API in background, then Caddy
+- `docker-compose.yml` - Container config with env var passthrough
 
-### Directory Structure
-- `content/` - Markdown content files (about/, ministries/, events/)
-- `layouts/` - Hugo templates (`_default/`, `partials/`, `about/`, `ministries/`, `page/`)
-- `assets/css/` - Stylesheets (main.css)
-- `static/images/` - Static images (leadership/, worship/, logo)
-- `data/` - YAML data files (leadership.yaml, ministries.yaml)
-- `api/` - Go API for contact form
+### Hugo Template Hierarchy
+- `layouts/_default/baseof.html` - Base template with SEO meta, Schema.org structured data
+- `layouts/index.html` - Homepage
+- `layouts/page/contact.html` - Contact form with Turnstile
+- `layouts/page/visit.html` - Visit page
+- `layouts/about/leadership.html` - Leadership page using `data/leadership.yaml`
+- `layouts/ministries/list.html` - Ministries list using `data/ministries.yaml`
+- `layouts/partials/` - Shared header, footer, schema
+
+### Data Files
+- `data/leadership.yaml` - Church leadership info (elders, deacons, ministers)
+- `data/ministries.yaml` - Ministry descriptions
+
+## API Endpoints
+
+- `POST /api/contact` - Contact form submission (validates Turnstile, sends email via Postmark)
+- `GET /api/health` - Health check
 
 ## Environment Variables
 
-For the Go API backend:
-- `POSTMARK_TOKEN` - Email service API key
-- `FROM_EMAIL` / `TO_EMAIL` - Email addresses for contact form
-- `ALLOWED_ORIGIN` - CORS origin (must match production domain exactly)
+Required for Go API:
+- `POSTMARK_TOKEN` - Postmark API key for sending emails
+- `FROM_EMAIL` - Sender email (must be verified in Postmark)
+- `TO_EMAIL` - Recipient email
+- `ALLOWED_ORIGIN` - CORS origin (must match production domain exactly, e.g., `https://www.southhillscoc.com`)
 - `TURNSTILE_SECRET` - Cloudflare Turnstile secret key
 
-Turnstile test keys for localhost:
-- Site Key: `1x00000000000000000000AA`
-- Secret: `1x0000000000000000000000000000000AA`
+Turnstile test keys for localhost development:
+- Site Key: `1x00000000000000000000AA` (put in hugo.toml params.turnstileSiteKey)
+- Secret: `1x0000000000000000000000000000000AA` (put in TURNSTILE_SECRET env var)
 
 ## Deployment
 
-Pushes to `master` trigger GitHub Actions which builds and pushes a Docker image, then SSHs to the VPS to pull and restart the container. Required GitHub secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`.
+Pushes to `master` trigger GitHub Actions: builds Docker image → pushes to Docker Hub → SSHs to VPS → pulls and restarts container.
+
+Required GitHub secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`
+
+VPS location: `/opt/south-hills-coc/` with `docker-compose.yml` and `.env`
+
+## Local Development with Contact Form
+
+To test the contact form locally:
+
+1. Update `hugo.toml` with test Turnstile site key
+2. Run Hugo: `hugo server -D`
+3. In another terminal, run the API with test env vars:
+   ```bash
+   cd api
+   TURNSTILE_SECRET="1x0000000000000000000000000000000AA" \
+   ALLOWED_ORIGIN="http://localhost:1313" \
+   go run .
+   ```
+4. Note: Emails won't send without valid Postmark credentials

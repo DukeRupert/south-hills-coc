@@ -15,6 +15,13 @@ title = 'South Hills Church of Christ'
   # Cloudflare Turnstile site key
   turnstileSiteKey = '0x4AAAAAACHhuM2lhHmWLq04'
 
+[params.addressComponents]
+  street = '2294 Deerfield Ln'
+  city = 'Helena'
+  region = 'MT'
+  postalCode = '59601'
+  country = 'US'
+
 [params.serviceTimes]
   bibleClass = '9:30 AM'
   worship = '10:30 AM'

@@ -16,6 +16,7 @@ type ContactRequest struct {
 	Email             string `json:"email"`
 	Phone             string `json:"phone"`
 	Message           string `json:"message"`
+	Website           string `json:"website"` // Honeypot field
 	TurnstileResponse string `json:"cf-turnstile-response"`
 }
 
@@ -84,6 +85,13 @@ func handleContact(w http.ResponseWriter, r *http.Request) {
 	var req ContactRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		sendError(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	// Check honeypot - silently accept to not tip off bots
+	if req.Website != "" {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{"message": "Message sent successfully"})
 		return
 	}
 

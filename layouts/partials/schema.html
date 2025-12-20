@@ -9,11 +9,11 @@
   "email": "{{ .Site.Params.email }}",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "2294 Deerfield Ln",
-    "addressLocality": "Helena",
-    "addressRegion": "MT",
-    "postalCode": "59601",
-    "addressCountry": "US"
+    "streetAddress": "{{ .Site.Params.addressComponents.street }}",
+    "addressLocality": "{{ .Site.Params.addressComponents.city }}",
+    "addressRegion": "{{ .Site.Params.addressComponents.region }}",
+    "postalCode": "{{ .Site.Params.addressComponents.postalCode }}",
+    "addressCountry": "{{ .Site.Params.addressComponents.country }}"
   },
   "geo": {
     "@type": "GeoCoordinates",

@@ -278,6 +278,332 @@ Only two files needed in `/opt/project-name/`:
 | `VPS_USER` | SSH username (deploy user) |
 | `VPS_SSH_KEY` | Private SSH key |
 
+## Reusable Patterns
+
+### Globally Useful (Include in Every Project)
+
+#### 1. Footer Attribution
+
+Standard Firefly Software footer credit with styling:
+
+```html
+<!-- In layouts/partials/footer.html -->
+<div class="footer-bottom">
+  <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+  <p class="made-by">Made in Montana by <a href="https://fireflysoftware.dev/" target="_blank" rel="noopener">Firefly Software</a></p>
+</div>
+```
+
+```css
+/* Footer attribution styling */
+.footer-bottom .made-by {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.footer-bottom .made-by a {
+  color: var(--color-secondary);
+  opacity: 0.8;
+}
+
+.footer-bottom .made-by a:hover {
+  opacity: 1;
+}
+```
+
+#### 2. Content Inventory Template
+
+Before starting conversion, create `CONTENT_INVENTORY.md` to catalog the source site:
+
+```markdown
+# Content Inventory - [Client Name]
+
+Source: https://www.example.com/
+
+## Site Structure
+
+The existing site has **N pages**:
+
+1. **Homepage** (`/`)
+2. **Service Page** (`/services/example`)
+
+---
+
+## Page Content
+
+### Homepage (`/`)
+
+**Hero Section:**
+- Headline: "..."
+- Subhead: "..."
+- CTA: Button text
+
+**Key Sections:**
+- Section 1: Description
+- Section 2: Description
+
+**Statistics:**
+- Stat 1: Value
+- Stat 2: Value
+
+---
+
+### Service Page (`/services/example`)
+
+**Hero:**
+- Title: "..."
+- Description: "..."
+
+**Benefits (N items):**
+1. **Benefit Title** - "Description"
+
+**Process (N steps):**
+1. **Step Title** - "Description"
+
+---
+
+## Contact Information
+
+- **Email:** contact@example.com
+- **Phone:** (if applicable)
+- **Address:** (if applicable)
+
+---
+
+## Navigation Structure
+
+**Header Nav:**
+- Item 1
+- Item 2
+
+**Footer Nav:**
+- Item 1
+- Item 2
+
+---
+
+## Downloaded Images
+
+| File | Description | Size |
+|------|-------------|------|
+| `logo.webp` | Company logo | XX KB |
+| `hero.webp` | Hero background | XX KB |
+
+---
+
+## Hugo Content Structure (Recommended)
+
+\`\`\`
+content/
+├── _index.md
+└── services/
+    └── example.md
+\`\`\`
+
+---
+
+## SEO/Meta Content Needed
+
+- Homepage: "Title | Tagline"
+- Service: "Service Name | Company"
+```
+
+#### 3. Self-Hosted Analytics (Plausible)
+
+Add to `layouts/_default/baseof.html` in `<head>`:
+
+```html
+<!-- Analytics -->
+<script defer data-domain="example.com" src="https://plausible.angmar.dev/js/script.js"></script>
+```
+
+Replace `example.com` with the client's domain.
+
+---
+
+### Situationally Useful (Include When Relevant)
+
+#### Alpine.js for Interactive Components
+
+When the site needs dropdowns, accordions, or mobile menus without a build step:
+
+```html
+<!-- In layouts/_default/baseof.html <head> -->
+<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+```
+
+Example mega menu pattern:
+
+```html
+<div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+  <button @click="open = !open">Menu</button>
+  <div x-show="open" x-transition>
+    <!-- Menu content -->
+  </div>
+</div>
+```
+
+#### Structured Data Templates
+
+For local businesses and service pages, add JSON-LD in `baseof.html`:
+
+```html
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{ .Site.Title }}",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "logo": "{{ .Site.BaseURL }}images/logo.png",
+  "email": "{{ .Site.Params.email }}",
+  "areaServed": {
+    "@type": "State",
+    "name": "California"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{ .Site.Params.company.city }}",
+    "addressRegion": "{{ .Site.Params.company.region }}",
+    "addressCountry": "US"
+  }
+}
+</script>
+{{ else if eq .Section "services" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "{{ .Title }}",
+  "description": "{{ .Params.intro }}",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "{{ .Site.Title }}"
+  }
+}
+</script>
+{{ end }}
+```
+
+#### Service Page Template Pattern
+
+For contractor/service business sites with multiple service offerings. Content is driven entirely by front matter arrays.
+
+**Front matter structure** (`content/services/example.md`):
+
+```yaml
+---
+title: "Service Name"
+description: "SEO description"
+intro: "Short intro paragraph for hero section"
+image: "/images/service-image.webp"
+
+benefits_title: "Why Choose This Service"
+benefits:
+  - title: "Benefit 1"
+    description: "Explanation of benefit"
+  - title: "Benefit 2"
+    description: "Explanation of benefit"
+
+process_title: "Our Process"
+process:
+  - title: "Step 1"
+    description: "What happens in this step"
+  - title: "Step 2"
+    description: "What happens in this step"
+
+related:
+  - "/services/other-service"
+  - "/services/another-service"
+---
+```
+
+**Template** (`layouts/services/single.html`):
+
+```html
+{{ define "main" }}
+<section class="service-hero">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    <p class="service-intro">{{ .Params.intro }}</p>
+  </div>
+</section>
+
+{{ with .Params.image }}
+<section class="service-image">
+  <div class="container">
+    <img src="{{ . }}" alt="{{ $.Title }}" loading="lazy">
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.benefits }}
+<section class="service-benefits">
+  <div class="container">
+    <h2>{{ $.Params.benefits_title | default "Why Choose This Service" }}</h2>
+    <div class="benefits-grid">
+      {{ range . }}
+      <div class="benefit-card">
+        <h3>{{ .title }}</h3>
+        <p>{{ .description }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.process }}
+<section class="service-process">
+  <div class="container">
+    <h2>{{ $.Params.process_title | default "Our Process" }}</h2>
+    <div class="process-steps">
+      {{ range $index, $step := . }}
+      <div class="process-step">
+        <div class="step-number">{{ add $index 1 }}</div>
+        <div class="step-content">
+          <h3>{{ $step.title }}</h3>
+          <p>{{ $step.description }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ with .Params.related }}
+<section class="related-services">
+  <div class="container">
+    <h2>Related Services</h2>
+    <div class="related-grid">
+      {{ range . }}
+      {{ with site.GetPage . }}
+      <a href="{{ .RelPermalink }}" class="related-card">
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Params.intro | truncate 100 }}</p>
+      </a>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<section class="cta">
+  <div class="container">
+    <h2>Ready to Get Started?</h2>
+    <p>Contact us for a free assessment.</p>
+    <a href="mailto:{{ .Site.Params.email }}" class="btn btn-primary btn-lg">Schedule Assessment</a>
+  </div>
+</section>
+{{ end }}
+```
+
+---
+
 ## Common Patterns
 
 ### Contact Form with Spam Protection
