@@ -26,13 +26,9 @@ elders:
 
 deacons:
   - name: Logan Williams
-    department: IT Department
+    department: IT
     image: /images/leadership/logan-williams.png
 
-  - name: Chiranjeevi Allada
-    department: Finance Department
-    image: /images/leadership/chiranjeevi-allada.png
-
   - name: Brian Christensen
-    department: Benevolence Department
+    department: Benevolence
     image: /images/leadership/brian-christensen.webp
