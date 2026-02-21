@@ -16,6 +16,14 @@
         file_server
     }
 
+    # Cache static assets: images, fingerprinted CSS/JS, fonts
+    @static path /images/* /css/* /js/* *.woff2 *.woff
+    header @static Cache-Control "public, max-age=31536000, immutable"
+
+    # Cache favicons and icons (change less often but still long-lived)
+    @icons path /favicon.ico /apple-touch-icon.png
+    header @icons Cache-Control "public, max-age=2592000"
+
     header {
         X-Content-Type-Options nosniff
         X-Frame-Options DENY

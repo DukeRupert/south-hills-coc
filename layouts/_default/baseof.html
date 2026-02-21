@@ -46,7 +46,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital@1&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  {{ $styles := resources.Get "css/main.css" | minify }}
+  {{ $styles := resources.Get "css/main.css" | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $styles.Permalink }}">
 
   <!-- Schema.org Structured Data -->
