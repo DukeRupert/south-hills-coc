@@ -231,7 +231,7 @@ img {
 }
 
 .footer-section h3 {
-  color: var(--color-primary-light);
+  color: white;
   margin-bottom: var(--spacing-sm);
 }
 
@@ -240,7 +240,7 @@ img {
 }
 
 .footer-section a:hover {
-  color: var(--color-primary-light);
+  color: var(--color-primary-pale);
 }
 
 .footer-logo {
@@ -254,7 +254,6 @@ img {
 
 .footer-tagline {
   font-style: italic;
-  opacity: 0.9;
 }
 
 address {
@@ -277,7 +276,7 @@ address {
   padding-top: var(--spacing-md);
   border-top: 1px solid rgba(255,255,255,0.2);
   text-align: center;
-  opacity: 0.8;
+  color: rgba(255,255,255,0.85);
 }
 
 .footer-bottom .made-by {
@@ -286,12 +285,11 @@ address {
 }
 
 .footer-bottom .made-by a {
-  color: var(--color-primary-light);
-  opacity: 0.8;
+  color: white;
 }
 
 .footer-bottom .made-by a:hover {
-  opacity: 1;
+  color: var(--color-primary-pale);
 }
 
 .footer-scripture {
@@ -302,7 +300,6 @@ address {
   font-family: var(--font-scripture);
   font-style: italic;
   font-size: 0.95rem;
-  opacity: 0.85;
 }
 
 .footer-scripture cite {
@@ -403,8 +400,11 @@ address {
 }
 
 .quick-info-bar a {
-  color: var(--color-primary-light);
+  color: white;
   font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 }
 
 .quick-info-bar span {
@@ -467,7 +467,7 @@ address {
 .section-header p {
   max-width: 600px;
   margin: 0 auto;
-  color: var(--color-text-light);
+  color: var(--color-text);
 }
 
 /* Cards */
@@ -726,7 +726,7 @@ address {
 }
 
 .pillar-item p {
-  color: var(--color-text-light);
+  color: var(--color-text);
   margin: 0;
 }
 
@@ -780,7 +780,7 @@ address {
 }
 
 .youtube-cta p {
-  color: var(--color-text-light);
+  color: var(--color-text);
   margin-bottom: var(--spacing-md);
 }
 
@@ -814,7 +814,6 @@ address {
 /* Footer Welcome */
 .footer-welcome {
   font-size: 0.9rem;
-  opacity: 0.8;
   margin-top: var(--spacing-xs);
 }
 
