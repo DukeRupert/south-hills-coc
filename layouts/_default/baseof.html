@@ -40,14 +40,16 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon-192.png">
   <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
-  <!-- Google Fonts: Inter + Lora -->
+  <!-- Styles (inlined to eliminate render-blocking request) -->
+  {{ $styles := resources.Get "css/main.css" | minify }}
+  <style>{{ $styles.Content | safeCSS }}</style>
+
+  <!-- Google Fonts: async load to avoid render blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital@1&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  {{ $styles := resources.Get "css/main.css" | minify | fingerprint }}
-  <link rel="stylesheet" href="{{ $styles.Permalink }}">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital@1&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital@1&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital@1&display=swap"></noscript>
 
   <!-- Schema.org Structured Data -->
   {{ partial "schema.html" . }}
