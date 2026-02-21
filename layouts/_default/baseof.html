@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Primary Meta Tags -->
-  <title>{{ if .IsHome }}{{ .Site.Title }} | Church in Helena, Montana{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <title>{{ if .IsHome }}{{ .Site.Title }} | Helena, MT | Sunday Worship 10:30 AM{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta name="keywords" content="church Helena Montana, Church of Christ Helena, Helena MT church, Christian church Helena, Sunday worship Helena MT, Bible study Helena Montana">
   <meta name="author" content="{{ .Site.Title }}">
@@ -19,7 +19,7 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="{{ if .IsHome }}website{{ else if .IsPage }}article{{ else }}website{{ end }}">
   <meta property="og:url" content="{{ .Permalink }}">
-  <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} - Church in Helena, Montana{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }} | Helena, MT | Sunday Worship 10:30 AM{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
   <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta property="og:image" content="{{ .Site.BaseURL }}images/og-image.jpg">
   <meta property="og:locale" content="en_US">
@@ -28,7 +28,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="{{ .Permalink }}">
-  <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} - Church in Helena, Montana{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }} | Helena, MT | Sunday Worship 10:30 AM{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
   <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta name="twitter:image" content="{{ .Site.BaseURL }}images/og-image.jpg">
 

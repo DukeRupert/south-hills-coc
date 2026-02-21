@@ -11,6 +11,6 @@ We are focused on **Revealing God, Renewing Lives, and Rejoicing Together**. Our
 
 ## Our History
 
-Established in 2011, South Hills Church of Christ was formed through the unification of three Helena-area congregations: Rocky Mountain Church of Christ, Helena Church of Christ, and Big Sky Church of Christ. These groups discovered collaborative strength through shared youth missions and Vacation Bible School programs, and eventually decided to combine their efforts under one roof.
+In 2011, three Helena congregations — Rocky Mountain Church of Christ, Helena Church of Christ, and Big Sky Church of Christ — chose to come together as one. After years of partnering on youth missions and Vacation Bible School, they realized they were stronger united. South Hills Church of Christ was a fresh start built on the belief that unity matters more than differences.
 
-Today, we continue that spirit of unity as we worship together and serve our community.
+Today, that same spirit drives everything we do as we worship together and serve our community.

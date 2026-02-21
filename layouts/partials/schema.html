@@ -1,7 +1,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Church",
+  "@type": ["Church", "PlaceOfWorship"],
   "name": "{{ .Site.Title }}",
   "description": "{{ .Site.Params.description }}",
   "url": "{{ .Site.BaseURL }}",
@@ -20,6 +20,7 @@
     "latitude": {{ .Site.Params.latitude }},
     "longitude": {{ .Site.Params.longitude }}
   },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query={{ .Site.Params.latitude }},{{ .Site.Params.longitude }}",
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
@@ -27,6 +28,13 @@
       "opens": "09:30",
       "closes": "12:00",
       "description": "Bible Class at 9:30 AM, Worship Service at 10:30 AM"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Tuesday",
+      "opens": "18:00",
+      "closes": "20:00",
+      "description": "Celebrate Recovery at 6:00 PM"
     }
   ],
   "sameAs": [

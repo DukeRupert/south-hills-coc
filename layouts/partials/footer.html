@@ -3,18 +3,20 @@
     <div class="footer-section">
       <img src="/images/logo-main.png" alt="South Hills Church of Christ" class="footer-logo" width="469" height="100">
       <p class="footer-tagline">{{ .Site.Params.tagline }}</p>
+      <p class="footer-welcome">Everyone is welcome. Come as you are.</p>
     </div>
 
     <div class="footer-section">
       <h3>Service Times</h3>
       <p><strong>Sunday Bible Class:</strong> <time>{{ .Site.Params.serviceTimes.bibleClass }}</time></p>
       <p><strong>Sunday Worship:</strong> <time>{{ .Site.Params.serviceTimes.worship }}</time></p>
+      <p><strong>Celebrate Recovery:</strong> <time>Tuesdays at 6:00 PM</time></p>
     </div>
 
     <div class="footer-section">
       <h3>Contact</h3>
       <address>
-        <p>{{ .Site.Params.address }}</p>
+        <p><a href="https://www.google.com/maps/search/?api=1&query={{ .Site.Params.latitude }},{{ .Site.Params.longitude }}" target="_blank" rel="noopener">{{ .Site.Params.address }}</a></p>
         <p><a href="tel:{{ .Site.Params.phone }}" aria-label="Call {{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a></p>
         <p><a href="mailto:{{ .Site.Params.email }}" aria-label="Email {{ .Site.Params.email }}">{{ .Site.Params.email }}</a></p>
       </address>
