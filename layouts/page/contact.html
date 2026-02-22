@@ -13,9 +13,9 @@
         <h2>Get in Touch</h2>
         <p>We'd love to hear from you! Whether you have questions about our services, want to learn more about our ministries, or just want to say hello, we're here for you.</p>
 
-        <div style="margin: 2rem 0;">
+        <div class="subsection-title">
           <h3>Contact Information</h3>
-          <address style="font-size: 1.1rem; line-height: 2;">
+          <address class="contact-address">
             <strong>Address:</strong><br>
             {{ .Site.Params.address }}<br><br>
             <strong>Phone:</strong><br>
@@ -66,11 +66,11 @@
           <!-- Cloudflare Turnstile -->
           <div class="cf-turnstile" data-sitekey="{{ .Site.Params.turnstileSiteKey }}"></div>
 
-          <div class="form-group" style="margin-top: 1rem;">
+          <div class="form-group btn-wrapper">
             <button type="submit" class="btn btn-primary">Send Message</button>
           </div>
 
-          <div id="form-status" role="alert" aria-live="polite" style="margin-top: 1rem;"></div>
+          <div id="form-status" role="alert" aria-live="polite"></div>
         </form>
       </div>
     </div>
@@ -79,7 +79,7 @@
 
 <section class="section section-alt">
   <div class="container">
-    <h2 style="text-align: center; margin-bottom: 2rem;">Find Us</h2>
+    <h2 class="section-title-centered">Find Us</h2>
     <div class="map-container">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.5!2d-111.9714227!3d46.570233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5342770556410ee1%3A0x5de3ac69c498bbfe!2sSouth+Hills+Church+of+Christ!5e0!3m2!1sen!2sus!4v1708000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing South Hills Church of Christ location"></iframe>
     </div>

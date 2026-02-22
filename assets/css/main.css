@@ -5,7 +5,6 @@
 
 :root {
   --color-primary: #975849;
-  --color-primary-light: #B8796B;
   --color-primary-dark: #7A4639;
   --color-primary-pale: #F5EBE8;
   --color-heading: #3F3D3C;
@@ -803,15 +802,15 @@ address {
 
 /* Firefly Signature */
 .footer-signature {
-  padding-top: 32px;
-  padding-bottom: 32px;
-  margin-top: 32px;
+  padding-top: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  margin-top: var(--spacing-md);
 }
 
 .sig-divider {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 0.875rem;
   width: 100%;
 }
 
@@ -823,12 +822,12 @@ address {
 .sig-divider-inner {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 0.5625rem;
   flex-shrink: 0;
 }
 
 .sig-divider-glyph {
-  font-size: 11px;
+  font-size: 0.6875rem;
   line-height: 1;
 }
 
@@ -852,6 +851,46 @@ address {
 .sig-divider.dark .sig-divider-text         { color: rgba(250, 250, 248, 0.78); }
 .sig-divider.dark .sig-divider-text a       { color: var(--color-primary-pale); }
 .sig-divider.dark .sig-divider-text a:hover { border-bottom-color: var(--color-primary-pale); }
+
+/* Responsive Icon Sizing */
+.pillar-icon svg,
+.expect-icon svg,
+.youtube-cta-icon svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Utility Classes (inline style replacements) */
+.contact-address {
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+.subsection-title {
+  margin-top: var(--spacing-md);
+}
+
+.leadership-section-title {
+  margin-top: var(--spacing-lg);
+}
+
+.section-title-centered {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.btn-wrapper {
+  margin-top: var(--spacing-sm);
+}
+
+#form-status {
+  margin-top: var(--spacing-sm);
+}
+
+.img-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
 
 /* Visitor Info Grid */
 .visitor-info-grid {
@@ -877,7 +916,22 @@ address {
   margin: 0;
 }
 
-/* Responsive */
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .section {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .page-header {
+    padding: var(--spacing-md) var(--spacing-md);
+  }
+
+  .two-column {
+    gap: var(--spacing-md);
+  }
+}
+
+/* Responsive - Mobile */
 @media (max-width: 768px) {
   h1 { font-size: 2rem; }
   h2 { font-size: 1.5rem; }
@@ -951,8 +1005,92 @@ address {
     padding: var(--spacing-md);
   }
 
+  /* Section spacing */
+  .section {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .page-header {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  /* Font size overrides */
+  .hero-tagline {
+    font-size: 1rem;
+  }
+
+  .hero-welcome {
+    font-size: 1rem;
+  }
+
+  /* Fixed dimension overrides */
+  .logo img {
+    height: 48px;
+  }
+
+  .footer-logo {
+    height: 48px;
+  }
+
+  .card-image {
+    height: 160px;
+  }
+
+  .leader-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .map-container {
+    height: 300px;
+  }
+
+  /* Form adjustments */
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem;
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  .form-group textarea {
+    min-height: 120px;
+  }
+
+  /* Utility class overrides */
+  .contact-address {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .leadership-section-title {
+    margin-top: var(--spacing-md);
+  }
+
+  .subsection-title {
+    margin-top: var(--spacing-sm);
+  }
+
+  /* Icon sizing */
+  .pillar-icon svg,
+  .expect-icon svg,
+  .youtube-cta-icon svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
   .sig-divider-rule { display: none; }
   .sig-divider { justify-content: center; }
   .sig-divider-inner { flex-shrink: 1; }
   .sig-divider-text { white-space: normal; text-align: center; }
+}
+
+/* Responsive - Small Phones */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .scripture-block p {
+    font-size: 1.1rem;
+  }
 }

@@ -16,13 +16,13 @@
           <p><strong>Sunday Worship:</strong> {{ .Site.Params.serviceTimes.worship }}</p>
         </div>
 
-        <h2 style="margin-top: 2rem;">Location</h2>
-        <address style="font-size: 1.1rem;">
+        <h2 class="subsection-title">Location</h2>
+        <address class="contact-address">
           {{ .Site.Params.address }}<br>
           <a href="tel:{{ .Site.Params.phone }}">{{ .Site.Params.phone }}</a>
         </address>
 
-        <p style="margin-top: 1rem;">
+        <p class="btn-wrapper">
           <a href="https://www.google.com/maps/dir/?api=1&destination={{ .Site.Params.latitude }},{{ .Site.Params.longitude }}" target="_blank" rel="noopener" class="btn btn-primary">Get Directions</a>
         </p>
       </div>
@@ -116,7 +116,7 @@
         <p>We love children at South Hills! Kids are always welcome in our worship services. We also offer age-appropriate children's church after communion for those who prefer it.</p>
         <p>Your family's safety is important to us. We maintain security measures during services with attention to child and family protection.</p>
 
-        <h2 style="margin-top: 2rem;">Next Steps</h2>
+        <h2 class="subsection-title">Next Steps</h2>
         <p>If you're exploring Christian faith or want to learn more about our church, we offer <strong>Compass Classes</strong> - introductory courses covering the foundations of Christianity and what it means to follow Jesus.</p>
       </div>
       <div>
@@ -127,7 +127,7 @@
                     /images/worship/congregation-800w.webp 800w,
                     /images/worship/congregation-1200w.webp 1200w"
             sizes="(max-width: 768px) 100vw, 50vw">
-          <img src="/images/worship/congregation-800w.jpg" alt="Church fellowship at South Hills" loading="lazy" width="800" height="533" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);">
+          <img src="/images/worship/congregation-800w.jpg" alt="Church fellowship at South Hills" loading="lazy" width="800" height="533" class="img-card">
         </picture>
       </div>
     </div>
