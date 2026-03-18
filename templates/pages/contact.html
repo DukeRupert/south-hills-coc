@@ -3,8 +3,9 @@
 {{end}}
 
 {{define "content"}}
-<div class="page-header">
+<div class="page-intro">
   <div class="container">
+    <p class="eyebrow">Get in Touch</p>
     <h1>{{.Title}}</h1>
     <p>{{.Description}}</p>
   </div>
@@ -14,23 +15,17 @@
   <div class="container">
     <div class="two-column">
       <div>
-        <h2>Get in Touch</h2>
-        <p>We'd love to hear from you! Whether you have questions about our services, want to learn more about our ministries, or just want to say hello, we're here for you.</p>
+        <p class="eyebrow">Contact Information</p>
+        <h2>We'd Love to Hear from You</h2>
+        <p>Whether you have questions about our services, want to learn more about our ministries, or just want to say hello, we're here for you.</p>
 
-        <div class="subsection-title">
-          <h3>Contact Information</h3>
-          <address class="contact-address">
-            <strong>Address:</strong><br>
-            {{.Config.Address}}<br><br>
-            <strong>Phone:</strong><br>
-            <a href="tel:{{.Config.Phone}}">{{.Config.Phone}}</a><br><br>
-            <strong>Email:</strong><br>
-            <a href="mailto:{{.Config.Email}}">{{.Config.Email}}</a>
-          </address>
-        </div>
+        <address class="contact-address" style="margin-top: var(--spacing-md);">
+          {{.Config.Address}}<br>
+          <a href="tel:{{.Config.Phone}}">{{.Config.Phone}}</a><br>
+          <a href="mailto:{{.Config.Email}}">{{.Config.Email}}</a>
+        </address>
 
-        <div class="service-times-box">
-          <h3>Service Times</h3>
+        <div class="info-card" style="margin-top: var(--spacing-md);">
           <p><strong>Sunday Bible Class:</strong> {{.Config.BibleClass}}</p>
           <p><strong>Sunday Worship:</strong> {{.Config.Worship}}</p>
           <p><strong>Office Hours:</strong> By appointment</p>
@@ -38,7 +33,7 @@
       </div>
 
       <div>
-        <h2 id="form-heading">Send Us a Message</h2>
+        <h2 id="form-heading" style="font-style: normal;">Send Us a Message</h2>
         <form class="contact-form" id="contact-form" action="/api/contact" method="POST" aria-labelledby="form-heading" novalidate>
           <div class="form-group">
             <label for="name">Name <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
@@ -71,7 +66,7 @@
           <div class="cf-turnstile" data-sitekey="{{.Config.TurnstileSiteKey}}"></div>
 
           <div class="form-group btn-wrapper">
-            <button type="submit" class="btn btn-primary">Send Message</button>
+            <button type="submit" class="btn btn-primary">Send message</button>
           </div>
 
           <div id="form-status" role="alert" aria-live="polite"></div>
@@ -83,8 +78,9 @@
 
 <section class="section section-alt">
   <div class="container">
-    <h2 class="section-title-centered">Find Us</h2>
-    <div class="map-container">
+    <p class="eyebrow">Location</p>
+    <h2>Find Us</h2>
+    <div class="map-container" style="margin-top: var(--spacing-md);">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.5!2d-111.9714227!3d46.570233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5342770556410ee1%3A0x5de3ac69c498bbfe!2sSouth+Hills+Church+of+Christ!5e0!3m2!1sen!2sus!4v1708000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing South Hills Church of Christ location"></iframe>
     </div>
   </div>
@@ -141,7 +137,7 @@ document.getElementById('contact-form').addEventListener('submit', async functio
     status.style.color = '#DC2626';
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Send Message';
+    submitBtn.textContent = 'Send message';
   }
 });
 </script>
