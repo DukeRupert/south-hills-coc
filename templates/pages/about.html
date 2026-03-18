@@ -52,11 +52,11 @@
             <p>Big Sky Church of Christ</p>
           </div>
           <div class="merger-step merger-step-result">
-            <p style="font-family: var(--font-heading); font-size: 1.125rem; font-weight: 400; color: var(--color-heading);">South Hills Church of Christ</p>
+            <p class="merger-result-name">South Hills Church of Christ</p>
           </div>
         </div>
 
-        <p style="margin-top: var(--spacing-md); font-size: 0.8125rem; color: var(--color-text); line-height: 1.7;">That same spirit of unity drives everything we do today — worshiping together, serving our neighbors, and welcoming anyone who walks through our doors.</p>
+        <p class="merger-closing">That same spirit of unity drives everything we do today — worshiping together, serving our neighbors, and welcoming anyone who walks through our doors.</p>
       </div>
     </div>
   </div>
@@ -112,13 +112,13 @@
   <div class="container">
     <p class="eyebrow">Leadership</p>
     <h2>Meet Our Leaders</h2>
-    <p class="section-desc" style="margin-bottom: var(--spacing-md);">The people who serve and shepherd our church family.</p>
+    <p class="section-desc">The people who serve and shepherd our church family.</p>
 
-    <h3 class="leadership-section-title" style="margin-top: 0;">Staff</h3>
+    <h3 class="leadership-section-title leadership-section-title-first">Staff</h3>
     <div class="leadership-grid">
       {{range .Leadership.Staff}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}" class="leader-image" width="150" height="150" loading="lazy">
+        <img src="/static{{.Image}}" alt="{{.Name}}, {{.Role}} at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">{{.Role}}</p>
         <p class="leader-bio">{{.Bio}}</p>
@@ -130,7 +130,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Elders}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}" class="leader-image" width="150" height="150" loading="lazy">
+        <img src="/static{{.Image}}" alt="{{.Name}}, Elder at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">Elder</p>
       </div>
@@ -141,7 +141,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Deacons}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}" class="leader-image" width="150" height="150" loading="lazy">
+        <img src="/static{{.Image}}" alt="{{.Name}}, Deacon of {{.Department}} at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">{{.Department}}</p>
       </div>
@@ -152,8 +152,8 @@
 
 <section class="section">
   <div class="container">
-    <div class="connect-grid" style="grid-template-rows: auto;">
-      <a href="/about/doctrine/" class="connect-card" style="grid-row: auto;">
+    <div class="connect-grid connect-grid-flat">
+      <a href="/about/doctrine/" class="connect-card">
         <span class="connect-card-tag">Doctrine</span>
         <h3>What We Believe</h3>
         <p>Discover the beliefs and doctrine that guide our faith and practice, grounded in Scripture.</p>

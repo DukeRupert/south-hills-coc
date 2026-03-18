@@ -8,7 +8,7 @@
 
 <section class="section">
   <div class="container">
-    <p class="max-w-2xl mx-auto text-center leading-relaxed" style="color: var(--color-text);">At South Hills, we believe everyone has a place to belong and a way to serve. Our ministries provide opportunities for spiritual growth, fellowship, and service to our community.</p>
+    <p class="max-w-2xl mx-auto text-center leading-relaxed">At South Hills, we believe everyone has a place to belong and a way to serve. Our ministries provide opportunities for spiritual growth, fellowship, and service to our community.</p>
   </div>
 </section>
 
@@ -22,18 +22,18 @@
 
     <div class="card-grid">
       {{range .Ministries.Growth}}
-      <div class="pillar-item" style="text-align: left; border-top: none;">
-        <h3 style="margin-bottom: var(--spacing-xs);">{{.Name}}</h3>
+      <div class="pillar-item ministry-card">
+        <h3>{{.Name}}</h3>
         <p>{{.Description}}</p>
         {{if .Contact}}
-        <p style="margin-top: var(--spacing-sm);"><a href="mailto:{{.Contact}}" style="font-weight: 500;">Get in touch &rarr;</a></p>
+        <p class="ministry-contact"><a href="mailto:{{.Contact}}">Get in touch &rarr;</a></p>
         {{end}}
       </div>
       {{end}}
     </div>
 
-    <blockquote class="scripture-block" style="margin-top: var(--spacing-lg);">
-      <p>"As iron sharpens iron, so one person sharpens another."</p>
+    <blockquote class="scripture-block scripture-block-spaced">
+      <p>&ldquo;As iron sharpens iron, so one person sharpens another.&rdquo;</p>
       <cite>Proverbs 27:17</cite>
     </blockquote>
   </div>
@@ -49,18 +49,18 @@
 
     <div class="card-grid">
       {{range .Ministries.NextGeneration}}
-      <div class="pillar-item" style="text-align: left; border-top: none;">
-        <h3 style="margin-bottom: var(--spacing-xs);">{{.Name}}</h3>
+      <div class="pillar-item ministry-card">
+        <h3>{{.Name}}</h3>
         <p>{{.Description}}</p>
         {{if .Contact}}
-        <p style="margin-top: var(--spacing-sm);"><a href="mailto:{{.Contact}}" style="font-weight: 500;">Get in touch &rarr;</a></p>
+        <p class="ministry-contact"><a href="mailto:{{.Contact}}">Get in touch &rarr;</a></p>
         {{end}}
       </div>
       {{end}}
     </div>
 
-    <blockquote class="scripture-block" style="margin-top: var(--spacing-lg);">
-      <p>"Children are a heritage from the Lord, offspring a reward from him."</p>
+    <blockquote class="scripture-block scripture-block-spaced">
+      <p>&ldquo;Children are a heritage from the Lord, offspring a reward from him.&rdquo;</p>
       <cite>Psalm 127:3</cite>
     </blockquote>
   </div>
@@ -77,19 +77,19 @@
     <div class="card-grid">
       {{range .Ministries.Service}}
       {{if ne .Slug "celebrate-recovery"}}
-      <div class="pillar-item" style="text-align: left; border-top: none;">
-        <h3 style="margin-bottom: var(--spacing-xs);">{{.Name}}</h3>
+      <div class="pillar-item ministry-card">
+        <h3>{{.Name}}</h3>
         <p>{{.Description}}</p>
         {{if .Contact}}
-        <p style="margin-top: var(--spacing-sm);"><a href="mailto:{{.Contact}}" style="font-weight: 500;">Get in touch &rarr;</a></p>
+        <p class="ministry-contact"><a href="mailto:{{.Contact}}">Get in touch &rarr;</a></p>
         {{end}}
       </div>
       {{end}}
       {{end}}
     </div>
 
-    <blockquote class="scripture-block" style="margin-top: var(--spacing-lg);">
-      <p>"Whatever you did for one of the least of these brothers and sisters of mine, you did for me."</p>
+    <blockquote class="scripture-block scripture-block-spaced">
+      <p>&ldquo;Whatever you did for one of the least of these brothers and sisters of mine, you did for me.&rdquo;</p>
       <cite>Matthew 25:40</cite>
     </blockquote>
   </div>
@@ -105,9 +105,9 @@
       </div>
 
       <div class="max-w-2xl mx-auto text-center">
-        <p style="color: var(--color-text); line-height: 1.7; margin-bottom: var(--spacing-sm);">A faith-based program for anyone seeking healing and a deeper relationship with Jesus. Whether you're working through addiction, grief, anxiety, or just the weight of daily life — you don't have to carry it alone.</p>
-        <p style="color: var(--color-text); line-height: 1.7; margin-bottom: var(--spacing-md);">You don't have to have it all together. You just have to show up.</p>
-        <p style="font-weight: 600; font-size: 1.125rem; color: var(--color-heading); margin-bottom: var(--spacing-md);">Tuesdays at 6:00 PM</p>
+        <p class="cr-text">A faith-based program for anyone seeking healing and a deeper relationship with Jesus. Whether you're working through addiction, grief, anxiety, or just the weight of daily life &mdash; you don't have to carry it alone.</p>
+        <p class="cr-text">You don't have to have it all together. You just have to show up.</p>
+        <p class="cr-time">Tuesdays at 6:00 PM</p>
         <a href="mailto:Celebraterecovery.shcoc@gmail.com" class="btn btn-primary">Get in Touch</a>
       </div>
     </div>
