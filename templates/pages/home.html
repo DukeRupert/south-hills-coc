@@ -1,87 +1,100 @@
 {{define "content"}}
 <section class="hero">
-  <p class="hero-location">Helena, Montana</p>
-  <h1>South Hills Church of Christ</h1>
-  <p class="hero-tagline">{{.Config.Tagline}}</p>
-  <p class="hero-welcome">Whether you've been following Jesus for decades or you're just starting to ask questions, there's a place for you here.</p>
-
-  <div class="hero-info">
-    <div class="hero-info-item">
-      <strong>Sundays</strong>
-      <span>{{.Config.BibleClass}} Bible Class</span>
-      <span>{{.Config.Worship}} Worship</span>
+  <div class="hero-layout">
+    <div class="hero-text">
+      <p class="eyebrow">Helena, Montana</p>
+      <h1>South Hills<br>Church of Christ</h1>
+      <p class="hero-tagline">{{.Config.Tagline}}</p>
+      <p class="hero-body">Whether you've been following Jesus for decades or you're just starting to ask questions, there's a place for you here.</p>
+      <div class="hero-actions">
+        <a href="/visit/" class="btn btn-primary">Plan your visit</a>
+      </div>
     </div>
-    <div class="hero-info-divider"></div>
-    <div class="hero-info-item">
-      <strong>Location</strong>
-      <span>{{.Config.Address}}</span>
-    </div>
-  </div>
 
-  <div class="hero-buttons">
-    <a href="/visit/" class="btn btn-primary">Plan Your Visit</a>
-    <a href="https://www.google.com/maps/dir/?api=1&destination={{.Config.Latitude}},{{.Config.Longitude}}" target="_blank" rel="noopener" class="btn btn-secondary">Get Directions</a>
+    <aside class="hero-sidebar">
+      <div class="info-panel">
+        <div class="info-panel-group">
+          <span class="info-panel-label">Sunday Morning</span>
+          <span class="info-panel-value">{{.Config.BibleClass}} Bible Class</span>
+          <span class="info-panel-value">{{.Config.Worship}} Worship</span>
+        </div>
+        <div class="info-panel-divider"></div>
+        <div class="info-panel-group">
+          <span class="info-panel-label">Every Tuesday</span>
+          <span class="info-panel-value">6:00 PM Celebrate Recovery</span>
+        </div>
+        <div class="info-panel-divider"></div>
+        <div class="info-panel-group">
+          <span class="info-panel-label">Location</span>
+          <span class="info-panel-value">{{.Config.Address}}</span>
+          <a href="https://www.google.com/maps/dir/?api=1&destination={{.Config.Latitude}},{{.Config.Longitude}}" target="_blank" rel="noopener" class="info-panel-pill">Get directions</a>
+        </div>
+      </div>
+    </aside>
   </div>
 </section>
+
+<div class="photo-band">
+  <picture>
+    <source type="image/webp"
+      srcset="/static/images/worship/congregation-400w.webp 400w,
+              /static/images/worship/congregation-600w.webp 600w,
+              /static/images/worship/congregation-800w.webp 800w,
+              /static/images/worship/congregation-1200w.webp 1200w"
+      sizes="100vw">
+    <img src="/static/images/worship/congregation-800w.jpg" alt="Sunday worship gathering at South Hills Church of Christ" width="1200" height="533">
+  </picture>
+</div>
 
 <section class="section">
   <div class="container">
-    <div class="section-header">
-      <h2>Who We Are</h2>
-      <p>A community pulling together to love God, love His church, and love the people He has created.</p>
-    </div>
-
-    <div class="pillars-grid">
-      <div class="pillar-item">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-        <h3>Discipleship</h3>
-        <p>Growing together through Bible study, small groups, and classes that equip us to follow Jesus more faithfully every day.</p>
+    <div class="content-grid">
+      <div>
+        <p class="eyebrow">Our Community</p>
+        <h2>A community pulling together to love God, love His church, and love the people He has created.</h2>
       </div>
 
-      <div class="pillar-item">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h3>Fellowship</h3>
-        <p>Building genuine relationships through shared meals, service projects, and community events that make this family feel like home.</p>
-      </div>
+      <div class="pillars-list">
+        <div class="pillar">
+          <svg class="pillar-icon-sm" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <div>
+            <h3>Discipleship</h3>
+            <p>Growing together through Bible study, small groups, and classes that equip us to follow Jesus more faithfully every day.</p>
+          </div>
+        </div>
 
-      <div class="pillar-item">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
-        <h3>Worship</h3>
-        <p>Gathering each Sunday to sing, pray, remember Christ in communion, and hear God's Word taught with practical application.</p>
+        <div class="pillar">
+          <svg class="pillar-icon-sm" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div>
+            <h3>Fellowship</h3>
+            <p>Building genuine relationships through shared meals, service projects, and community events that make this family feel like home.</p>
+          </div>
+        </div>
+
+        <div class="pillar">
+          <svg class="pillar-icon-sm" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <div>
+            <h3>Worship</h3>
+            <p>Gathering each Sunday to sing, pray, remember Christ in communion, and hear God's Word taught with practical application.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section scripture-section">
+<section class="scripture-section">
   <div class="container">
     <blockquote class="scripture-block">
-      <p>"By this all people will know that you are my disciples, if you have love for one another."</p>
+      <p>&ldquo;By this all people will know that you are my disciples, if you have love for one another.&rdquo;</p>
       <cite>John 13:35</cite>
     </blockquote>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section">
   <div class="container">
     <div class="two-column">
-      <div>
-        <h2>Join Us This Sunday</h2>
-        <p>Whether you're exploring faith for the first time or looking for a church home, you're welcome here. Service lasts about an hour — no pressure, no spotlight, just come and be with us.</p>
-
-        <div class="service-times-box">
-          <h3>Service Times</h3>
-          <p><strong>Bible Class:</strong> {{.Config.BibleClass}}</p>
-          <p><strong>Worship Service:</strong> {{.Config.Worship}}</p>
-        </div>
-
-        <p class="btn-wrapper">
-          <a href="/visit/" class="btn btn-primary">Plan Your Visit</a>
-        </p>
-        <p style="margin-top: 0.75rem;">
-          <a href="{{.Config.YouTubeURL}}" target="_blank" rel="noopener" class="text-primary font-medium hover:underline">Can't make it in person? Watch online &rarr;</a>
-        </p>
-      </div>
       <div>
         <picture>
           <source type="image/webp"
@@ -90,52 +103,63 @@
                     /static/images/worship/congregation-800w.webp 800w,
                     /static/images/worship/congregation-1200w.webp 1200w"
             sizes="(max-width: 768px) 100vw, 50vw">
-          <img src="/static/images/worship/congregation-800w.jpg" alt="Worship gathering at South Hills Church of Christ" loading="lazy" width="800" height="533" class="img-card">
+          <img src="/static/images/worship/congregation-800w.jpg" alt="Church fellowship at South Hills" loading="lazy" width="800" height="533" class="img-card">
         </picture>
+      </div>
+      <div>
+        <p class="eyebrow">This Sunday</p>
+        <h2>Join Us</h2>
+        <p>Whether you're exploring faith for the first time or looking for a church home, you're welcome here. Service lasts about an hour — no pressure, no spotlight, just come and be with us.</p>
+
+        <div class="info-card">
+          <p><strong>Bible Class:</strong> {{.Config.BibleClass}}</p>
+          <p><strong>Worship Service:</strong> {{.Config.Worship}}</p>
+        </div>
+
+        <div class="hero-actions">
+          <a href="/visit/" class="btn btn-primary">Plan your visit</a>
+          <a href="{{.Config.YouTubeURL}}" target="_blank" rel="noopener" class="btn btn-text">Watch online &rarr;</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section section-alt">
   <div class="container">
-    <div class="section-header">
-      <h2>Get Connected</h2>
-      <p>There are many ways to get involved in our church family.</p>
-    </div>
+    <p class="eyebrow">Next Steps</p>
+    <h2>Get Connected</h2>
+    <p class="section-desc">There are many ways to get involved in our church family.</p>
 
-    <div class="card-grid">
-      <a href="/ministries/" class="card card-warm">
-        <div class="card-content">
-          <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <h3>Ministries</h3>
-          <p>Find your place in our Women's, Men's, Youth, and Children's ministries, or join our service opportunities.</p>
-        </div>
+    <div class="connect-grid">
+      <a href="/ministries/" class="connect-card">
+        <span class="connect-card-tag">Ministries</span>
+        <h3>Find Your Place</h3>
+        <p>Women's, Men's, Youth, and Children's ministries, plus service opportunities across our congregation.</p>
+        <span class="connect-card-link">Explore ministries &rarr;</span>
       </a>
 
-      <a href="/about/" class="card card-warm">
-        <div class="card-content">
-          <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
-          <h3>Meet Our Team</h3>
-          <p>Get to know the staff, elders, and deacons who serve our congregation.</p>
-        </div>
+      <a href="/about/" class="connect-card">
+        <span class="connect-card-tag">About</span>
+        <h3>Meet Our Team</h3>
+        <p>Get to know the staff, elders, and deacons who serve our congregation.</p>
+        <span class="connect-card-link">Meet the team &rarr;</span>
       </a>
 
-      <a href="/contact/" class="card card-warm">
-        <div class="card-content">
-          <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <h3>Send Us a Message</h3>
-          <p>Have questions? We'd love to hear from you. Reach out anytime.</p>
-        </div>
+      <a href="/contact/" class="connect-card">
+        <span class="connect-card-tag">Contact</span>
+        <h3>Send Us a Message</h3>
+        <p>Have questions? We'd love to hear from you.</p>
+        <span class="connect-card-link">Get in touch &rarr;</span>
       </a>
     </div>
 
     <div class="cr-callout">
       <div class="cr-callout-content">
+        <p class="eyebrow">Every Tuesday at 6:00 PM</p>
         <h3>Celebrate Recovery</h3>
         <p>A faith-based program for anyone seeking healing and a deeper relationship with Jesus. You don't have to have it all together — you just have to show up.</p>
-        <p class="cr-time"><strong>Tuesdays at 6:00 PM</strong></p>
-        <a href="/ministries/#celebrate-recovery" class="btn btn-primary">Join Us Tuesday</a>
+        <a href="/ministries/#celebrate-recovery" class="btn btn-primary" style="margin-top: var(--spacing-sm);">Join us Tuesday</a>
       </div>
     </div>
   </div>
