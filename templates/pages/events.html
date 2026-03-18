@@ -1,28 +1,115 @@
+{{define "head"}}
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+{{end}}
+
 {{define "content"}}
 <div class="page-header">
   <div class="container">
     <h1>{{.Title}}</h1>
-    {{if .Description}}<p>{{.Description}}</p>{{end}}
+    <p>See what's happening at South Hills and request to reserve a space for your event.</p>
   </div>
 </div>
 
+<!-- Events Section -->
 <section class="section">
   <div class="container">
-    <p>Check back soon for upcoming events and activities. For the latest information, contact us or follow our announcements during Sunday services.</p>
+    <div id="events-view"
+         hx-get="/calendar/feed?month={{.Calendar.Year}}-{{printf "%02d" .Calendar.Month}}"
+         hx-trigger="load"
+         hx-swap="outerHTML">
+      <div class="calendar-loading">
+        <p>Loading events...</p>
+      </div>
+    </div>
 
-    <h2>Regular Schedule</h2>
+    <div class="reserve-cta">
+      <p>Want to use the building for an event?</p>
+      <a href="#request-form" class="btn btn-primary">Request a Reservation</a>
+    </div>
+  </div>
+</section>
 
-    <p><strong>Sundays:</strong></p>
-    <ul>
-      <li>Bible Class: 9:30 AM</li>
-      <li>Worship Service: 10:30 AM</li>
-    </ul>
+<!-- Reservation Form Section -->
+<section class="section section-alt" id="request-form">
+  <div class="container">
+    <div class="two-column">
+      <div>
+        <h2>Our Building Is Your Building</h2>
+        <p>Submit your request using the form and our administrative coordinator will follow up to confirm availability. Once approved, your event will be added to the building calendar.</p>
 
-    <p><strong>Men's Ministry:</strong></p>
-    <ul>
-      <li>Tuesday Morning Bible Study: 7:00 AM</li>
-      <li>First Saturday Breakfast (monthly)</li>
-    </ul>
+        <div class="service-times-box">
+          <h3>Available Spaces</h3>
+          <p><strong>Sanctuary</strong> — Main worship area</p>
+          <p><strong>Lower Hall</strong> — Fellowship hall with kitchen</p>
+          <p><strong>Loft</strong> — Upstairs meeting room</p>
+          <p><strong>Entire Building</strong> — All spaces</p>
+        </div>
+      </div>
+
+      <div>
+        <h2 id="form-heading">Request a Reservation</h2>
+        <form class="contact-form" id="reserve-form" aria-labelledby="form-heading"
+              hx-post="/reserve"
+              hx-target="#reserve-result"
+              hx-swap="innerHTML"
+              hx-on::after-request="if(event.detail.successful && event.detail.xhr.status === 200 && document.querySelector('#reserve-result .reserve-success')) this.reset()">
+
+            <div class="form-group">
+              <label for="name">Name <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+              <input type="text" id="name" name="name" required maxlength="100" aria-required="true" autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+              <input type="email" id="email" name="email" required maxlength="100" aria-required="true" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone <span class="optional">(optional)</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+              <label for="space">Space <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+              <select id="space" name="space" required aria-required="true">
+                <option value="">Select a space...</option>
+                <option value="sanctuary">Sanctuary</option>
+                <option value="lower">Lower Hall</option>
+                <option value="loft">Loft</option>
+                <option value="all">Entire Building</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+              <input type="date" id="date" name="date" required aria-required="true">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="start">Start Time <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                <input type="time" id="start" name="start" required aria-required="true">
+              </div>
+              <div class="form-group">
+                <label for="end">End Time <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                <input type="time" id="end" name="end" required aria-required="true">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="purpose">Purpose <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+              <textarea id="purpose" name="purpose" required maxlength="500" aria-required="true" aria-describedby="purpose-hint" placeholder="Describe your event or reason for use"></textarea>
+              <small id="purpose-hint" class="form-hint">Brief description of your event</small>
+            </div>
+
+            <div class="form-group btn-wrapper">
+              <button type="submit" class="btn btn-primary">Submit Request</button>
+            </div>
+
+            <div id="reserve-result" role="alert" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 {{end}}

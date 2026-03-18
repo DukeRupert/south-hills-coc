@@ -9,19 +9,20 @@ import (
 
 	"github.com/dukerupert/south-hills-coc/internal/config"
 	"github.com/dukerupert/south-hills-coc/internal/data"
-	"github.com/dukerupert/south-hills-coc/internal/gcal"
+	"github.com/dukerupert/south-hills-coc/internal/ical"
 )
 
 type Handler struct {
 	Config         *config.Config
 	leadershipData *data.LeadershipData
 	ministriesData *data.MinistriesData
-	gcalService    *gcal.Service
-	templates            map[string]*template.Template
-	gridTemplate         *template.Template
+	icalService    *ical.Service
+	templates             map[string]*template.Template
+	gridTemplate          *template.Template
+	feedTemplate          *template.Template
 	reserveResultTemplate *template.Template
-	templateDir          string
-	isDev                bool
+	templateDir           string
+	isDev                 bool
 }
 
 type PageData struct {
@@ -47,7 +48,6 @@ var mainMenu = []MenuItem{
 	{Name: "Visit", URL: "/visit/"},
 	{Name: "About", URL: "/about/"},
 	{Name: "Ministries", URL: "/ministries/"},
-	{Name: "Calendar", URL: "/calendar/"},
 	{Name: "Events", URL: "/events/"},
 	{Name: "Contact", URL: "/contact/"},
 }
@@ -61,13 +61,14 @@ func New(cfg *config.Config) *Handler {
 		isDev:          cfg.IsDev(),
 	}
 
-	// Initialize GCal service if configured
-	if cfg.GCalAPIKey != "" && cfg.GCalCalendarID != "" {
-		h.gcalService = gcal.NewService(cfg.GCalAPIKey, cfg.GCalCalendarID)
+	// Initialize iCal service if configured
+	if cfg.ICalFeedURL != "" {
+		h.icalService = ical.NewService(cfg.ICalFeedURL)
 	}
 
 	h.templates = h.parseAllTemplates()
 	h.gridTemplate = h.parseGridTemplate()
+	h.feedTemplate = h.parseFeedTemplate()
 	h.reserveResultTemplate = h.parseReserveResultTemplate()
 	return h
 }
@@ -124,6 +125,26 @@ func (h *Handler) getGridTemplate() *template.Template {
 		return h.parseGridTemplate()
 	}
 	return h.gridTemplate
+}
+
+func (h *Handler) parseFeedTemplate() *template.Template {
+	funcMap := template.FuncMap{
+		"safeHTML":    func(s string) template.HTML { return template.HTML(s) },
+		"currentYear": func() int { return time.Now().Year() },
+	}
+	file := filepath.Join(h.templateDir, "partials", "events-feed.html")
+	tmpl, err := template.New("").Funcs(funcMap).ParseFiles(file)
+	if err != nil {
+		log.Fatalf("failed to parse events-feed template: %v", err)
+	}
+	return tmpl
+}
+
+func (h *Handler) getFeedTemplate() *template.Template {
+	if h.isDev {
+		return h.parseFeedTemplate()
+	}
+	return h.feedTemplate
 }
 
 func (h *Handler) parseReserveResultTemplate() *template.Template {

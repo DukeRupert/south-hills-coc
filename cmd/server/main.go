@@ -5,11 +5,16 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/joho/godotenv"
+
 	"github.com/dukerupert/south-hills-coc/internal/config"
 	"github.com/dukerupert/south-hills-coc/internal/handlers"
 )
 
 func main() {
+	// Load .env file if present (does not override existing env vars)
+	_ = godotenv.Load()
+
 	cfg := config.Load()
 	h := handlers.New(cfg)
 
@@ -40,6 +45,7 @@ func main() {
 
 	// htmx endpoints
 	mux.HandleFunc("GET /calendar/events", h.CalendarEvents)
+	mux.HandleFunc("GET /calendar/feed", h.CalendarFeed)
 	mux.HandleFunc("POST /reserve", h.HandleReserve)
 
 	// API
