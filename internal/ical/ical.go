@@ -109,26 +109,28 @@ func (s *Service) fetchEvents(ctx context.Context, year int, month time.Month) (
 			End:         eventEnd,
 			Location:    e.Location,
 			Description: e.Description,
-			Space:       normalizeSpace(e.Description),
+			Space:       normalizeSpace(e.Description, e.Location),
 		})
 	}
 
 	return events, nil
 }
 
-// normalizeSpace maps a location string to a space identifier.
-func normalizeSpace(location string) string {
-	loc := strings.ToLower(strings.TrimSpace(location))
-	switch {
-	case strings.Contains(loc, "sanctuary"):
-		return "sanctuary"
-	case strings.Contains(loc, "lower"):
-		return "lower"
-	case strings.Contains(loc, "loft"):
-		return "loft"
-	case strings.Contains(loc, "entire") || strings.Contains(loc, "all") || strings.Contains(loc, "whole"):
-		return "all"
-	default:
-		return ""
+// normalizeSpace extracts a space identifier from the description or location fields.
+// Description is checked first; location is used as fallback.
+func normalizeSpace(fields ...string) string {
+	for _, field := range fields {
+		s := strings.ToLower(strings.TrimSpace(field))
+		switch {
+		case strings.Contains(s, "sanctuary"):
+			return "sanctuary"
+		case strings.Contains(s, "lower"):
+			return "lower"
+		case strings.Contains(s, "loft"):
+			return "loft"
+		case strings.Contains(s, "entire") || strings.Contains(s, "all") || strings.Contains(s, "whole"):
+			return "all"
+		}
 	}
+	return ""
 }

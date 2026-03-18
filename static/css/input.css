@@ -1797,16 +1797,16 @@ address {
 
 .calendar-legend-dot {
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
 }
 
-/* Warm space colors */
-.calendar-dot-sanctuary { background: #F5EBE8; }
-.calendar-dot-lower { background: #E8EFE4; }
-.calendar-dot-loft { background: #FDF0E0; }
-.calendar-dot-all { background: #F0E4DA; }
+/* Space colors — distinct hues from brand palette */
+.calendar-dot-sanctuary { background: #975849; }
+.calendar-dot-lower { background: #48967D; }
+.calendar-dot-loft { background: #C4A04A; }
+.calendar-dot-all { background: #35413D; }
 
 .calendar-grid {
   display: grid;
@@ -1874,23 +1874,23 @@ address {
 }
 
 .calendar-event-sanctuary {
-  background: #F5EBE8;
-  color: #7A4639;
+  background: #975849;
+  color: #fff;
 }
 
 .calendar-event-lower {
-  background: #E8EFE4;
-  color: #4A6741;
+  background: #48967D;
+  color: #fff;
 }
 
 .calendar-event-loft {
-  background: #FDF0E0;
-  color: #8B6914;
+  background: #C4A04A;
+  color: #fff;
 }
 
 .calendar-event-all {
-  background: #F0E4DA;
-  color: #6B5347;
+  background: #35413D;
+  color: #EAE5DE;
 }
 
 /* Events with no space assigned */
@@ -1989,7 +1989,7 @@ address {
 }
 
 .feed-event {
-  border-left: 2px solid var(--color-border);
+  border-left: 4px solid var(--color-border);
   padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
   margin-bottom: var(--spacing-xs);
   border-radius: 0 4px 4px 0;
@@ -2002,16 +2002,16 @@ address {
   border-left-color: var(--color-primary);
 }
 
-/* Space-specific left borders (warm palette) */
-.feed-event-sanctuary { border-left-color: #C4956A; }
-.feed-event-lower { border-left-color: #7A9B6D; }
+/* Space-specific left borders — same strong hues as calendar */
+.feed-event-sanctuary { border-left-color: #975849; }
+.feed-event-lower { border-left-color: #48967D; }
 .feed-event-loft { border-left-color: #C4A04A; }
-.feed-event-all { border-left-color: var(--color-primary); }
+.feed-event-all { border-left-color: #35413D; }
 
-.feed-event[open].feed-event-sanctuary { border-left-color: #975849; }
-.feed-event[open].feed-event-lower { border-left-color: #4A6741; }
+.feed-event[open].feed-event-sanctuary { border-left-color: #7A4639; }
+.feed-event[open].feed-event-lower { border-left-color: #357A64; }
 .feed-event[open].feed-event-loft { border-left-color: #8B6914; }
-.feed-event[open].feed-event-all { border-left-color: var(--color-primary-dark); }
+.feed-event[open].feed-event-all { border-left-color: #2B2B28; }
 
 .feed-event-summary {
   cursor: pointer;
@@ -2027,18 +2027,18 @@ address {
 
 .feed-event-dot {
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
   flex-shrink: 0;
 }
 
-/* Feed dots reuse warm calendar palette */
-.feed-dot-sanctuary { background: #F5EBE8; border: 1px solid #C4956A; }
-.feed-dot-lower { background: #E8EFE4; border: 1px solid #7A9B6D; }
-.feed-dot-loft { background: #FDF0E0; border: 1px solid #C4A04A; }
-.feed-dot-all { background: #F0E4DA; border: 1px solid var(--color-primary); }
-.feed-dot- { background: var(--color-background-alt); border: 1px solid var(--color-border); }
+/* Feed dots — solid brand hues, no pastel fill */
+.feed-dot-sanctuary { background: #975849; }
+.feed-dot-lower { background: #48967D; }
+.feed-dot-loft { background: #C4A04A; }
+.feed-dot-all { background: #35413D; }
+.feed-dot- { background: var(--color-border); }
 
 .feed-event-title {
   font-weight: 600;
@@ -2278,7 +2278,7 @@ address {
 
   .feed-event-time {
     width: 100%;
-    padding-left: calc(10px + var(--spacing-sm));
+    padding-left: calc(12px + var(--spacing-sm));
     font-size: 0.8rem;
   }
 
