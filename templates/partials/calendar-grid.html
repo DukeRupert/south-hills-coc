@@ -1,0 +1,49 @@
+{{define "calendar-grid"}}
+<div id="calendar-grid">
+  <!-- Month navigation -->
+  <div class="calendar-nav">
+    <button
+      class="btn btn-secondary calendar-nav-btn"
+      hx-get="/calendar/events?month={{.PrevMonth}}"
+      hx-target="#calendar-grid"
+      hx-swap="outerHTML">
+      &larr; Prev
+    </button>
+    <h2 class="calendar-month-label">{{.MonthLabel}}</h2>
+    <button
+      class="btn btn-secondary calendar-nav-btn"
+      hx-get="/calendar/events?month={{.NextMonth}}"
+      hx-target="#calendar-grid"
+      hx-swap="outerHTML">
+      Next &rarr;
+    </button>
+  </div>
+
+  <!-- Legend -->
+  <div class="calendar-legend">
+    <span class="calendar-legend-item"><span class="calendar-legend-dot calendar-dot-sanctuary"></span> Sanctuary</span>
+    <span class="calendar-legend-item"><span class="calendar-legend-dot calendar-dot-lower"></span> Lower Hall</span>
+    <span class="calendar-legend-item"><span class="calendar-legend-dot calendar-dot-loft"></span> Loft</span>
+    <span class="calendar-legend-item"><span class="calendar-legend-dot calendar-dot-all"></span> Entire Building</span>
+  </div>
+
+  <!-- Grid -->
+  <div class="calendar-grid">
+    {{range .DayHeaders}}
+    <div class="calendar-header-cell">{{.}}</div>
+    {{end}}
+
+    {{range .Days}}
+    <div class="calendar-day-cell{{if .IsToday}} calendar-today{{end}}{{if not .InMonth}} calendar-out-of-month{{end}}"
+         {{if .InMonth}}aria-label="{{.Day}}, {{$.MonthLabel}}{{if .Events}}, {{len .Events}} event{{if gt (len .Events) 1}}s{{end}}{{end}}"{{end}}>
+      <span class="calendar-day-number{{if .IsToday}} calendar-day-today{{end}}">{{.Day}}</span>
+      {{range .Events}}
+      <div class="calendar-event calendar-event-{{.Space}}" title="{{.Summary}} ({{.TimeRange}})">
+        <span class="calendar-event-summary">{{.Summary}}</span>
+      </div>
+      {{end}}
+    </div>
+    {{end}}
+  </div>
+</div>
+{{end}}

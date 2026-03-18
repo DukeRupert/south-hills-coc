@@ -1,0 +1,25 @@
+{{define "head"}}
+<script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+{{end}}
+
+{{define "content"}}
+<div class="page-header">
+  <div class="container">
+    <h1>{{.Title}}</h1>
+    {{if .Description}}<p>{{.Description}}</p>{{end}}
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div id="calendar-grid"
+         hx-get="/calendar/events?month={{.Calendar.Year}}-{{printf "%02d" .Calendar.Month}}"
+         hx-trigger="load"
+         hx-swap="outerHTML">
+      <div class="calendar-loading">
+        <p>Loading calendar...</p>
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}

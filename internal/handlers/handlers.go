@@ -9,13 +9,16 @@ import (
 
 	"github.com/dukerupert/south-hills-coc/internal/config"
 	"github.com/dukerupert/south-hills-coc/internal/data"
+	"github.com/dukerupert/south-hills-coc/internal/gcal"
 )
 
 type Handler struct {
 	Config         *config.Config
 	leadershipData *data.LeadershipData
 	ministriesData *data.MinistriesData
+	gcalService    *gcal.Service
 	templates      map[string]*template.Template
+	gridTemplate   *template.Template
 	templateDir    string
 	isDev          bool
 }
@@ -30,6 +33,7 @@ type PageData struct {
 	Content     template.HTML
 	Leadership  *data.LeadershipData
 	Ministries  *data.MinistriesData
+	Calendar    *CalendarData
 	MenuItems   []MenuItem
 }
 
@@ -42,6 +46,7 @@ var mainMenu = []MenuItem{
 	{Name: "Visit", URL: "/visit/"},
 	{Name: "About", URL: "/about/"},
 	{Name: "Ministries", URL: "/ministries/"},
+	{Name: "Calendar", URL: "/calendar/"},
 	{Name: "Events", URL: "/events/"},
 	{Name: "Contact", URL: "/contact/"},
 }
@@ -51,10 +56,17 @@ func New(cfg *config.Config) *Handler {
 		Config:         cfg,
 		leadershipData: data.LoadLeadership(),
 		ministriesData: data.LoadMinistries(),
-		templateDir: "templates",
-		isDev:       cfg.IsDev(),
+		templateDir:    "templates",
+		isDev:          cfg.IsDev(),
 	}
+
+	// Initialize GCal service if configured
+	if cfg.GCalAPIKey != "" && cfg.GCalCalendarID != "" {
+		h.gcalService = gcal.NewService(cfg.GCalAPIKey, cfg.GCalCalendarID)
+	}
+
 	h.templates = h.parseAllTemplates()
+	h.gridTemplate = h.parseGridTemplate()
 	return h
 }
 
@@ -67,7 +79,7 @@ func (h *Handler) parseAllTemplates() map[string]*template.Template {
 	pages := []string{
 		"home", "visit", "contact",
 		"about", "about-leadership", "about-doctrine",
-		"ministries", "events",
+		"ministries", "events", "calendar",
 	}
 
 	sharedFiles := []string{
@@ -90,6 +102,26 @@ func (h *Handler) parseAllTemplates() map[string]*template.Template {
 		templates[page] = tmpl
 	}
 	return templates
+}
+
+func (h *Handler) parseGridTemplate() *template.Template {
+	funcMap := template.FuncMap{
+		"safeHTML":    func(s string) template.HTML { return template.HTML(s) },
+		"currentYear": func() int { return time.Now().Year() },
+	}
+	file := filepath.Join(h.templateDir, "partials", "calendar-grid.html")
+	tmpl, err := template.New("").Funcs(funcMap).ParseFiles(file)
+	if err != nil {
+		log.Fatalf("failed to parse calendar-grid template: %v", err)
+	}
+	return tmpl
+}
+
+func (h *Handler) getGridTemplate() *template.Template {
+	if h.isDev {
+		return h.parseGridTemplate()
+	}
+	return h.gridTemplate
 }
 
 func (h *Handler) render(w http.ResponseWriter, page string, pd PageData) {

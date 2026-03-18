@@ -35,6 +35,9 @@ type Config struct {
 	ToEmail         string
 	AllowedOrigin   string
 	TurnstileSecret string
+
+	GCalAPIKey     string
+	GCalCalendarID string
 }
 
 func Load() *Config {
@@ -71,6 +74,9 @@ func Load() *Config {
 		ToEmail:         os.Getenv("TO_EMAIL"),
 		AllowedOrigin:   envOr("ALLOWED_ORIGIN", "http://localhost:8080"),
 		TurnstileSecret: os.Getenv("TURNSTILE_SECRET"),
+
+		GCalAPIKey:     os.Getenv("GCAL_API_KEY"),
+		GCalCalendarID: os.Getenv("GCAL_CALENDAR_ID"),
 	}
 }
 
