@@ -8,51 +8,121 @@
 
 <section class="section">
   <div class="container">
-    <p>At South Hills, we believe everyone has a place to belong and a way to serve. Our ministries provide opportunities for spiritual growth, fellowship, and service to our community.</p>
+    <p class="max-w-2xl mx-auto text-center leading-relaxed" style="color: var(--color-text);">At South Hills, we believe everyone has a place to belong and a way to serve. Our ministries provide opportunities for spiritual growth, fellowship, and service to our community.</p>
+  </div>
+</section>
 
-    <div class="ministry-category">
+<!-- Growth & Fellowship -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="expect-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
       <h2>Growth &amp; Fellowship</h2>
-      <div class="card-grid">
-        {{range .Ministries.Growth}}
-        <div class="card">
-          <div class="card-content">
-            <h3>{{.Name}}</h3>
-            <p>{{.Description}}</p>
-            {{if .Contact}}<p><strong>Contact:</strong> <a href="mailto:{{.Contact}}">{{.Contact}}</a></p>{{end}}
-          </div>
-        </div>
-        {{end}}
-      </div>
     </div>
 
-    <div class="ministry-category">
+    <div class="card-grid">
+      {{range .Ministries.Growth}}
+      <div class="pillar-item" style="text-align: left; border-top: none;">
+        <h3 style="margin-bottom: var(--spacing-xs);">{{.Name}}</h3>
+        <p>{{.Description}}</p>
+        {{if .Contact}}
+        <p style="margin-top: var(--spacing-sm);"><a href="mailto:{{.Contact}}" style="font-weight: 500;">Get in touch &rarr;</a></p>
+        {{end}}
+      </div>
+      {{end}}
+    </div>
+
+    <blockquote class="scripture-block" style="margin-top: var(--spacing-lg);">
+      <p>"As iron sharpens iron, so one person sharpens another."</p>
+      <cite>Proverbs 27:17</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- Next Generation -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="expect-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <h2>Next Generation</h2>
-      <div class="card-grid">
-        {{range .Ministries.NextGeneration}}
-        <div class="card">
-          <div class="card-content">
-            <h3>{{.Name}}</h3>
-            <p>{{.Description}}</p>
-            {{if .Contact}}<p><strong>Contact:</strong> <a href="mailto:{{.Contact}}">{{.Contact}}</a></p>{{end}}
-          </div>
-        </div>
-        {{end}}
-      </div>
     </div>
 
-    <div class="ministry-category">
-      <h2>Service &amp; Support</h2>
-      <div class="card-grid">
-        {{range .Ministries.Service}}
-        <div class="card">
-          <div class="card-content">
-            <h3>{{.Name}}</h3>
-            <p>{{.Description}}</p>
-            {{if .Contact}}<p><strong>Contact:</strong> <a href="mailto:{{.Contact}}">{{.Contact}}</a></p>{{end}}
-          </div>
-        </div>
+    <div class="card-grid">
+      {{range .Ministries.NextGeneration}}
+      <div class="pillar-item" style="text-align: left; border-top: none;">
+        <h3 style="margin-bottom: var(--spacing-xs);">{{.Name}}</h3>
+        <p>{{.Description}}</p>
+        {{if .Contact}}
+        <p style="margin-top: var(--spacing-sm);"><a href="mailto:{{.Contact}}" style="font-weight: 500;">Get in touch &rarr;</a></p>
         {{end}}
       </div>
+      {{end}}
+    </div>
+
+    <blockquote class="scripture-block" style="margin-top: var(--spacing-lg);">
+      <p>"Children are a heritage from the Lord, offspring a reward from him."</p>
+      <cite>Psalm 127:3</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- Service & Support -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="expect-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+      <h2>Service &amp; Support</h2>
+    </div>
+
+    <div class="card-grid">
+      {{range .Ministries.Service}}
+      {{if ne .Slug "celebrate-recovery"}}
+      <div class="pillar-item" style="text-align: left; border-top: none;">
+        <h3 style="margin-bottom: var(--spacing-xs);">{{.Name}}</h3>
+        <p>{{.Description}}</p>
+        {{if .Contact}}
+        <p style="margin-top: var(--spacing-sm);"><a href="mailto:{{.Contact}}" style="font-weight: 500;">Get in touch &rarr;</a></p>
+        {{end}}
+      </div>
+      {{end}}
+      {{end}}
+    </div>
+
+    <blockquote class="scripture-block" style="margin-top: var(--spacing-lg);">
+      <p>"Whatever you did for one of the least of these brothers and sisters of mine, you did for me."</p>
+      <cite>Matthew 25:40</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- Celebrate Recovery -->
+<section id="celebrate-recovery" class="section">
+  <div class="container">
+    <div class="cr-featured">
+      <div class="section-header">
+        <div class="expect-icon"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></div>
+        <h2>Celebrate Recovery</h2>
+      </div>
+
+      <div class="max-w-2xl mx-auto text-center">
+        <p style="color: var(--color-text); line-height: 1.7; margin-bottom: var(--spacing-sm);">A faith-based program for anyone seeking healing and a deeper relationship with Jesus. Whether you're working through addiction, grief, anxiety, or just the weight of daily life — you don't have to carry it alone.</p>
+        <p style="color: var(--color-text); line-height: 1.7; margin-bottom: var(--spacing-md);">You don't have to have it all together. You just have to show up.</p>
+        <p style="font-weight: 600; font-size: 1.125rem; color: var(--color-heading); margin-bottom: var(--spacing-md);">Tuesdays at 6:00 PM</p>
+        <a href="mailto:Celebraterecovery.shcoc@gmail.com" class="btn btn-primary">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Get Involved -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Find Your Place</h2>
+      <p>Not sure where to start? We'd love to help you find the right fit.</p>
+    </div>
+    <div class="section-header">
+      <a href="/contact/" class="btn btn-primary">Send Us a Message</a>
     </div>
   </div>
 </section>

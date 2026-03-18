@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dukerupert/south-hills-coc/internal/gcal"
+	"github.com/dukerupert/south-hills-coc/internal/ical"
 )
 
 type ReserveRequest struct {
@@ -118,11 +118,11 @@ func (h *Handler) HandleReserve(w http.ResponseWriter, r *http.Request) {
 	reqEnd := time.Date(date.Year(), date.Month(), date.Day(),
 		endTime.Hour(), endTime.Minute(), 0, 0, loc)
 
-	// Check for conflicts if GCal is configured
-	if h.gcalService != nil {
-		events, err := h.gcalService.EventsForMonth(r.Context(), date.Year(), date.Month())
+	// Check for conflicts if iCal is configured
+	if h.icalService != nil {
+		events, err := h.icalService.EventsForMonth(r.Context(), date.Year(), date.Month())
 		if err != nil {
-			log.Printf("gcal error during reservation: %v", err)
+			log.Printf("ical error during reservation: %v", err)
 			// Continue without conflict check rather than blocking the reservation
 		} else {
 			if conflict, evt := hasConflict(events, req.Space, date, reqStart, reqEnd); conflict {
@@ -150,7 +150,7 @@ func (h *Handler) HandleReserve(w http.ResponseWriter, r *http.Request) {
 	h.renderReserveResult(w, "success", "", nil)
 }
 
-func hasConflict(events []gcal.Event, space string, date time.Time, start, end time.Time) (bool, *gcal.Event) {
+func hasConflict(events []ical.Event, space string, date time.Time, start, end time.Time) (bool, *ical.Event) {
 	for _, e := range events {
 		if !sameDay(e.Start, date) {
 			continue
@@ -193,10 +193,10 @@ func timesOverlap(aStart, aEnd, bStart, bEnd time.Time) bool {
 type reserveResultData struct {
 	Status   string      // "success", "error", "conflict"
 	Message  string      // for error messages
-	Conflict *gcal.Event // for conflict details
+	Conflict *ical.Event // for conflict details
 }
 
-func (h *Handler) renderReserveResult(w http.ResponseWriter, status, message string, conflict *gcal.Event) {
+func (h *Handler) renderReserveResult(w http.ResponseWriter, status, message string, conflict *ical.Event) {
 	tmpl := h.getReserveResultTemplate()
 	if tmpl == nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)

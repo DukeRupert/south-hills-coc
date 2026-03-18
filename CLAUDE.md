@@ -122,3 +122,39 @@ APP_ENV=development go run ./cmd/server
 ```
 
 Note: Emails won't send without valid Postmark credentials.
+
+## Design Context
+
+### Users
+First-time church visitors deciding whether to show up this Sunday. They're likely anxious, unfamiliar with church culture, and searching on mobile. They need service times, location, and reassurance within seconds. Secondary: current members staying connected, and families evaluating children's programs.
+
+### Brand Personality
+Warm, welcoming, genuine. Like a friend inviting you to something they love — not a corporation, not a sales pitch, not performative. The voice is honest, approachable, and assumes no church background. Montana-grounded: earthy, unpretentious, community-oriented.
+
+### Aesthetic Direction
+- **Palette:** Warm earth tones anchored by terracotta (#975849). No cold grays, no bright blues, no neons. Every neutral has a warm undertone. Alternating sections use warm cream (#FAF7F4), never gray-100.
+- **Typography:** Inter for everything. Optional Lora serif for scripture only. Generous line-height (leading-relaxed). Headings in logo charcoal (#3F3D3C).
+- **Imagery:** Real congregation photos only — no stock photography. Warm color grading, natural light. Candid over posed.
+- **Layout:** Generous spacing (py-16 md:py-24). Max-w-6xl content. Breathing room everywhere. Photography-forward sections.
+- **Components:** Rounded-lg corners. Warm shadows. Terracotta accents on buttons, borders, icons. Scripture in serif with left border or centered block treatment.
+- **Theme:** Light mode only.
+- **Icons:** Lucide, stroke-width 1.5, terracotta on light backgrounds, white on dark.
+
+### Design Principles
+
+1. **Visitor-first hierarchy.** Service times, address, and "Plan Your Visit" visible in the first viewport on every device. Information architecture serves the nervous first-timer, not the longtime member.
+
+2. **Warmth in every detail.** No cold grays, no sharp edges, no clinical spacing. Every color, radius, and gap should feel like a warm Montana afternoon — approachable and inviting. When in doubt, add warmth.
+
+3. **Scripture as design element.** Bible verses are visual anchors — set apart in serif, with terracotta accents and generous spacing. They create rhythm between sections, never crammed inline. 2-3 per page max.
+
+4. **Earned trust, not claimed.** Real photos of real people. Honest copy that doesn't over-promise. Celebrate Recovery featured openly. No stock photography, no "All are welcome" platitudes. Show, don't tell.
+
+5. **Polish the details.** The direction is right — elevate execution. Consistent spacing, smooth transitions, aligned elements, intentional hover states. The difference between good and great is in the margins, the timing, and the care.
+
+### Accessibility
+- Target: WCAG AA compliance
+- Already implemented: skip links, focus-visible states, prefers-reduced-motion, sr-only utility, semantic HTML
+- Contrast: white text on terracotta meets AA (~5.5:1). Body text #4B4544 on white meets AA.
+- All images require descriptive alt text
+- Form inputs have visible labels and focus indicators

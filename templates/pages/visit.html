@@ -26,8 +26,17 @@
           <a href="https://www.google.com/maps/dir/?api=1&destination={{.Config.Latitude}},{{.Config.Longitude}}" target="_blank" rel="noopener" class="btn btn-primary">Get Directions</a>
         </p>
       </div>
-      <div class="map-container">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.5!2d-111.9714227!3d46.570233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5342770556410ee1%3A0x5de3ac69c498bbfe!2sSouth+Hills+Church+of+Christ!5e0!3m2!1sen!2sus!4v1708000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing South Hills Church of Christ location"></iframe>
+      <div>
+        <!-- TODO: Replace placeholder with building exterior photo when available -->
+        <!-- Helps first-time visitors recognize the building on arrival -->
+        <div class="pillar-item" style="border-top: none; margin-bottom: var(--spacing-md); min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div class="expect-icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#975849" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <p style="font-weight: 500; color: var(--color-heading); margin-top: var(--spacing-xs);">Look for us in the south hills</p>
+          <p style="font-size: 0.875rem; color: var(--color-text-light);">Building photo coming soon</p>
+        </div>
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.5!2d-111.9714227!3d46.570233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5342770556410ee1%3A0x5de3ac69c498bbfe!2sSouth+Hills+Church+of+Christ!5e0!3m2!1sen!2sus!4v1708000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing South Hills Church of Christ location"></iframe>
+        </div>
       </div>
     </div>
   </div>

@@ -1,6 +1,9 @@
 package handlers
 
-import "net/http"
+import (
+	"net/http"
+	"time"
+)
 
 func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "home", PageData{
@@ -30,6 +33,7 @@ func (h *Handler) About(w http.ResponseWriter, r *http.Request) {
 		Title:       "About Us",
 		Description: "Learn about South Hills Church of Christ, a Bible-based congregation in Helena, Montana. Established in 2011, we're focused on revealing God, renewing lives, and rejoicing together.",
 		CurrentPath: "/about/",
+		Leadership:  h.leadershipData,
 	})
 }
 
@@ -60,9 +64,25 @@ func (h *Handler) Ministries(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Events(w http.ResponseWriter, r *http.Request) {
+	year, month := currentMonth()
+	if m := r.URL.Query().Get("month"); m != "" {
+		if y, mo, ok := parseMonth(m); ok {
+			year, month = y, mo
+		}
+	}
+	prev, next := adjacentMonths(year, month)
+	label := time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC).Format("January 2006")
+
 	h.render(w, "events", PageData{
-		Title:       "Events & Activities",
-		Description: "Events and activities at South Hills Church of Christ in Helena, MT. Sunday worship, Bible studies, men's breakfast, and community gatherings.",
+		Title:       "Events & Building Use",
+		Description: "View the building calendar and request to use the South Hills Church of Christ building for your event.",
 		CurrentPath: "/events/",
+		Calendar: &CalendarData{
+			MonthLabel: label,
+			PrevMonth:  prev,
+			NextMonth:  next,
+			Year:       year,
+			Month:      month,
+		},
 	})
 }

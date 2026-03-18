@@ -4,6 +4,8 @@
 <div class="quick-info-bar" role="banner">
   <strong>Sundays:</strong> {{.Config.BibleClass}} &amp; {{.Config.Worship}}
   <span aria-hidden="true">|</span>
+  <a href="https://www.google.com/maps/dir/?api=1&destination={{.Config.Latitude}},{{.Config.Longitude}}" target="_blank" rel="noopener" aria-label="Get directions to {{.Config.Address}}">Get Directions</a>
+  <span aria-hidden="true">|</span>
   <a href="tel:{{.Config.Phone}}" aria-label="Call us at {{.Config.Phone}}">{{.Config.Phone}}</a>
 </div>
 
