@@ -20,3 +20,10 @@ Thumbs.db
 
 # Go
 /api/contact-api
+/server
+
+# Node
+node_modules/
+
+# Tailwind build output
+static/css/main.css

@@ -1,0 +1,49 @@
+{{define "content"}}
+<div class="page-header">
+  <div class="container">
+    <h1>{{.Title}}</h1>
+    {{if .Description}}<p>{{.Description}}</p>{{end}}
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <p>Our leadership team is committed to serving our congregation and community with love, wisdom, and humility. We follow the biblical pattern of shared leadership through elders (shepherds), supported by deacons and staff.</p>
+
+    <h2>Staff</h2>
+    <div class="leadership-grid">
+      {{range .Leadership.Staff}}
+      <div class="leader-card">
+        <img src="/static{{.Image}}" alt="{{.Name}}" class="leader-image">
+        <h3 class="leader-name">{{.Name}}</h3>
+        <p class="leader-role">{{.Role}}</p>
+        {{if .Bio}}<p class="leader-bio">{{.Bio}}</p>{{end}}
+        {{if .Email}}<p><a href="mailto:{{.Email}}">{{.Email}}</a></p>{{end}}
+      </div>
+      {{end}}
+    </div>
+
+    <h2 class="leadership-section-title">Shepherds (Elders)</h2>
+    <div class="leadership-grid">
+      {{range .Leadership.Elders}}
+      <div class="leader-card">
+        <img src="/static{{.Image}}" alt="{{.Name}}" class="leader-image">
+        <h3 class="leader-name">{{.Name}}</h3>
+        <p class="leader-role">Elder</p>
+      </div>
+      {{end}}
+    </div>
+
+    <h2 class="leadership-section-title">Deacons</h2>
+    <div class="leadership-grid">
+      {{range .Leadership.Deacons}}
+      <div class="leader-card">
+        <img src="/static{{.Image}}" alt="{{.Name}}" class="leader-image">
+        <h3 class="leader-name">{{.Name}}</h3>
+        <p class="leader-role">{{.Department}}</p>
+      </div>
+      {{end}}
+    </div>
+  </div>
+</section>
+{{end}}

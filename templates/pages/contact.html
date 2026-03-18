@@ -1,0 +1,148 @@
+{{define "head"}}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{{end}}
+
+{{define "content"}}
+<div class="page-header">
+  <div class="container">
+    <h1>{{.Title}}</h1>
+    <p>{{.Description}}</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="two-column">
+      <div>
+        <h2>Get in Touch</h2>
+        <p>We'd love to hear from you! Whether you have questions about our services, want to learn more about our ministries, or just want to say hello, we're here for you.</p>
+
+        <div class="subsection-title">
+          <h3>Contact Information</h3>
+          <address class="contact-address">
+            <strong>Address:</strong><br>
+            {{.Config.Address}}<br><br>
+            <strong>Phone:</strong><br>
+            <a href="tel:{{.Config.Phone}}">{{.Config.Phone}}</a><br><br>
+            <strong>Email:</strong><br>
+            <a href="mailto:{{.Config.Email}}">{{.Config.Email}}</a>
+          </address>
+        </div>
+
+        <div class="service-times-box">
+          <h3>Service Times</h3>
+          <p><strong>Sunday Bible Class:</strong> {{.Config.BibleClass}}</p>
+          <p><strong>Sunday Worship:</strong> {{.Config.Worship}}</p>
+          <p><strong>Office Hours:</strong> By appointment</p>
+        </div>
+      </div>
+
+      <div>
+        <h2 id="form-heading">Send Us a Message</h2>
+        <form class="contact-form" id="contact-form" action="/api/contact" method="POST" aria-labelledby="form-heading" novalidate>
+          <div class="form-group">
+            <label for="name">Name <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+            <input type="text" id="name" name="name" required maxlength="50" aria-required="true" autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+            <input type="email" id="email" name="email" required maxlength="50" aria-required="true" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone <span class="optional">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+
+          <!-- Honeypot field -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+            <textarea id="message" name="message" required minlength="40" maxlength="500" aria-required="true" aria-describedby="message-hint"></textarea>
+            <small id="message-hint" class="form-hint">Minimum 40 characters</small>
+          </div>
+
+          <!-- Cloudflare Turnstile -->
+          <div class="cf-turnstile" data-sitekey="{{.Config.TurnstileSiteKey}}"></div>
+
+          <div class="form-group btn-wrapper">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+
+          <div id="form-status" role="alert" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title-centered">Find Us</h2>
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2758.5!2d-111.9714227!3d46.570233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5342770556410ee1%3A0x5de3ac69c498bbfe!2sSouth+Hills+Church+of+Christ!5e0!3m2!1sen!2sus!4v1708000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map showing South Hills Church of Christ location"></iframe>
+    </div>
+  </div>
+</section>
+{{end}}
+
+{{define "scripts"}}
+<script>
+document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const status = document.getElementById('form-status');
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  // Check honeypot
+  if (form.website.value) {
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  status.textContent = '';
+
+  const formData = {
+    name: form.elements.name.value,
+    email: form.elements.email.value,
+    phone: form.elements.phone.value,
+    message: form.elements.message.value,
+    'cf-turnstile-response': form.querySelector('[name="cf-turnstile-response"]')?.value || ''
+  };
+
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+      status.textContent = 'Thank you! Your message has been sent.';
+      status.style.color = '#059669';
+      form.reset();
+      if (window.turnstile) {
+        turnstile.reset();
+      }
+    } else {
+      const data = await response.json();
+      status.textContent = data.error || 'Something went wrong. Please try again.';
+      status.style.color = '#DC2626';
+    }
+  } catch (error) {
+    status.textContent = 'Network error. Please try again.';
+    status.style.color = '#DC2626';
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Message';
+  }
+});
+</script>
+{{end}}

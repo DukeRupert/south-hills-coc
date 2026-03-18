@@ -1,0 +1,65 @@
+{{define "footer"}}
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-container">
+    <div class="footer-section">
+      <picture>
+        <source type="image/webp" srcset="/static/images/logo-main.webp">
+        <img src="/static/images/logo-main.png" alt="South Hills Church of Christ" class="footer-logo" width="469" height="100">
+      </picture>
+      <p class="footer-tagline">{{.Config.Tagline}}</p>
+      <p class="footer-welcome">Everyone is welcome. Come as you are.</p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Service Times</h3>
+      <p><strong>Sunday Bible Class:</strong> <time>{{.Config.BibleClass}}</time></p>
+      <p><strong>Sunday Worship:</strong> <time>{{.Config.Worship}}</time></p>
+      <p><strong>Celebrate Recovery:</strong> <time>Tuesdays at 6:00 PM</time></p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <address>
+        <p><a href="https://www.google.com/maps/search/?api=1&query={{.Config.Latitude}},{{.Config.Longitude}}" target="_blank" rel="noopener">{{.Config.Address}}</a></p>
+        <p><a href="tel:{{.Config.Phone}}" aria-label="Call {{.Config.Phone}}">{{.Config.Phone}}</a></p>
+        <p><a href="mailto:{{.Config.Email}}" aria-label="Email {{.Config.Email}}">{{.Config.Email}}</a></p>
+      </address>
+    </div>
+
+    <nav class="footer-section" aria-label="Footer navigation">
+      <h3>Connect</h3>
+      <ul class="social-links">
+        {{if .Config.YouTubeURL}}
+          <li><a href="{{.Config.YouTubeURL}}" target="_blank" rel="noopener" aria-label="Watch Online on YouTube (opens in new tab)">Watch Online</a></li>
+        {{end}}
+        {{if .Config.GivingURL}}
+          <li><a href="{{.Config.GivingURL}}" target="_blank" rel="noopener" aria-label="Give Online (opens in new tab)">Give Online</a></li>
+        {{end}}
+        <li><a href="/contact/">Contact Us</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-scripture">
+    <p>"Do justice, love kindness, walk humbly with your God." &mdash; <cite>Micah 6:8</cite></p>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {{currentYear}} South Hills Church of Christ. All rights reserved.</p>
+  </div>
+
+  <!-- Firefly Software signature -->
+  <div class="footer-signature">
+    <span class="sig-divider dark">
+      <span class="sig-divider-rule"></span>
+      <span class="sig-divider-inner">
+        <span class="sig-divider-glyph">&#10022;</span>
+        <span class="sig-divider-text">
+          Made in Montana by <a href="https://fireflysoftware.dev" target="_blank" rel="noopener">Firefly Software</a>
+        </span>
+      </span>
+      <span class="sig-divider-rule"></span>
+    </span>
+  </div>
+</footer>
+{{end}}

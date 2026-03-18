@@ -1,0 +1,34 @@
+staff:
+  - name: Lance Love
+    role: Lead Minister
+    email: lancewlove@gmail.com
+    image: /images/leadership/lance-love.jpg
+    bio: "Focused on developing strong families and leading worship. Serves alongside his wife Dorrie. Previously ministered in Moline, AL. Enjoys outdoor activities."
+
+  - name: Chante' Williams
+    role: Administrative Coordinator
+    email: southhillschurchofchrist@gmail.com
+    image: /images/leadership/chante-williams.png
+    bio: "Montana native with a BA in Ministry. Pursuing a Master's in Christian Counseling. Also serves as Worship Coordinator."
+
+elders:
+  - name: Shaun & Ade Peterson
+    image: /images/leadership/shaun-ade-peterson.png
+
+  - name: Randy & Donna Yaeger
+    image: /images/leadership/randy-donna-yaeger.webp
+
+  - name: John & Debbie Kilpatrick
+    image: /images/leadership/john-debbie-kilpatrick.png
+
+  - name: Allan & Diane Steinle
+    image: /images/leadership/allan-diane-steinle.png
+
+deacons:
+  - name: Logan Williams
+    department: IT
+    image: /images/leadership/logan-williams.png
+
+  - name: Brian Christensen
+    department: Benevolence
+    image: /images/leadership/brian-christensen.webp

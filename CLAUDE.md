@@ -4,70 +4,99 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hugo static site for South Hills Church of Christ (Helena, MT) with a Go API backend for the contact form. Deployed via Docker to a VPS using GitHub Actions. Uses a two-Caddy architecture: outer Caddy on host for HTTPS/TLS, inner Caddy in container for static serving and API proxying.
+Go web server for South Hills Church of Christ (Helena, MT) using html/template, htmx, and Tailwind CSS. Contact form with Turnstile CAPTCHA and Postmark email. Deployed via Docker to a Hetzner VPS using GitHub Actions. Outer Caddy on host handles HTTPS/TLS, Go server in container handles everything else.
 
 ## Build Commands
 
 ```bash
-# Hugo development
-hugo server -D                    # Dev server with drafts at localhost:1313
-hugo --gc --minify               # Production build (outputs to public/)
+# Go development server (with template hot-reload)
+APP_ENV=development go run ./cmd/server
+
+# Build CSS (Tailwind)
+npm run css:dev                  # Watch mode
+npm run css:build                # Production build (minified)
+
+# Build Go binary
+go build -o server ./cmd/server
 
 # Docker
 docker build -t south-hills-coc . # Build container
 docker compose up -d              # Run locally at localhost:8082
 docker compose logs               # View logs
-
-# Go API
-cd api && go build -o contact-api # Build API binary
-cd api && go run .                # Run API directly (for testing)
 ```
 
 ## Architecture
 
 ```
 Internet → Outer Caddy (HTTPS) → Docker Container (HTTP:8082)
-                                      ├── Inner Caddy (static files + /api/* proxy)
-                                      └── Go API (localhost:8080)
+                                      └── Go Server (localhost:8080)
+                                            ├── Page routes (html/template)
+                                            ├── Static files (/static/*)
+                                            └── API endpoints (/api/*)
 ```
 
 ### Key Files
-- `hugo.toml` - Site config, params (phone, email, address, service times), Turnstile site key
-- `Caddyfile` - Inner Caddy: static serving from `/srv`, reverse proxy `/api/*` to Go API
-- `Dockerfile` - Three-stage build: Hugo → Go → Caddy final image
-- `docker-entrypoint.sh` - Starts Go API in background, then Caddy
+- `cmd/server/main.go` - Entry point, routes, server start
+- `internal/config/config.go` - Env-based config (site params, API keys)
+- `internal/handlers/handlers.go` - Template parsing, render helper
+- `internal/handlers/pages.go` - Page handler funcs (Home, About, etc.)
+- `internal/handlers/contact.go` - Contact form API (Turnstile + Postmark)
+- `internal/data/data.go` - Leadership + ministries YAML data (go:embed)
+- `Dockerfile` - Three-stage build: Tailwind CSS → Go → Alpine final image
 - `docker-compose.yml` - Container config with env var passthrough
 
-### Hugo Template Hierarchy
-- `layouts/_default/baseof.html` - Base template with SEO meta, Schema.org structured data
-- `layouts/index.html` - Homepage
-- `layouts/page/contact.html` - Contact form with Turnstile
-- `layouts/page/visit.html` - Visit page
-- `layouts/about/leadership.html` - Leadership page using `data/leadership.yaml`
-- `layouts/ministries/list.html` - Ministries list using `data/ministries.yaml`
-- `layouts/partials/` - Shared header, footer, schema
+### Template Hierarchy
+- `templates/base.html` - Base layout with SEO meta, Schema.org, nav, footer blocks
+- `templates/partials/header.html` - Navigation with mobile hamburger menu
+- `templates/partials/footer.html` - Footer with service times, contact, socials
+- `templates/partials/schema.html` - Schema.org structured data (Church, WebSite)
+- `templates/pages/*.html` - Page-specific content blocks
 
 ### Data Files
-- `data/leadership.yaml` - Church leadership info (elders, deacons, ministers)
-- `data/ministries.yaml` - Ministry descriptions
+- `internal/data/leadership.yaml` - Church leadership (staff, elders, deacons)
+- `internal/data/ministries.yaml` - Ministry descriptions by category
 
-## API Endpoints
+### CSS / Tailwind
+- `static/css/input.css` - Tailwind v4 config + existing site CSS
+- `static/css/main.css` - Built output (gitignored)
+- Design tokens defined in `@theme` block in input.css
+- Existing pages use custom CSS classes; new features should use Tailwind utilities
 
-- `POST /api/contact` - Contact form submission (validates Turnstile, sends email via Postmark)
-- `GET /api/health` - Health check
+## Routes
+
+| Path | Handler | Template |
+|------|---------|----------|
+| `/` | Home | home.html |
+| `/visit/` | Visit | visit.html |
+| `/about/` | About | about.html |
+| `/about/leadership/` | Leadership | about-leadership.html |
+| `/about/doctrine/` | Doctrine | about-doctrine.html |
+| `/ministries/` | Ministries | ministries.html |
+| `/events/` | Events | events.html |
+| `/contact/` | Contact | contact.html |
+| `POST /api/contact` | HandleContact | - |
+| `GET /api/health` | HandleHealth | - |
 
 ## Environment Variables
 
-Required for Go API:
-- `POSTMARK_TOKEN` - Postmark API key for sending emails
-- `FROM_EMAIL` - Sender email (must be verified in Postmark)
-- `TO_EMAIL` - Recipient email
-- `ALLOWED_ORIGIN` - CORS origin (must match production domain exactly, e.g., `https://www.southhillscoc.org`)
-- `TURNSTILE_SECRET` - Cloudflare Turnstile secret key
+```bash
+PORT=8080                    # Server port
+APP_ENV=development          # "development" enables template hot-reload
 
-Turnstile test keys for localhost development:
-- Site Key: `1x00000000000000000000AA` (put in hugo.toml params.turnstileSiteKey)
-- Secret: `1x0000000000000000000000000000000AA` (put in TURNSTILE_SECRET env var)
+# Postmark (email)
+POSTMARK_TOKEN=              # Postmark API key
+FROM_EMAIL=                  # Verified sender email
+TO_EMAIL=                    # Recipient email
+
+# Security
+ALLOWED_ORIGIN=              # CORS origin (e.g., https://www.southhillscoc.org)
+TURNSTILE_SECRET=            # Cloudflare Turnstile secret key
+TURNSTILE_SITE_KEY=          # Cloudflare Turnstile site key (has default)
+```
+
+Turnstile test keys for localhost:
+- Site Key: `1x00000000000000000000AA`
+- Secret: `1x0000000000000000000000000000000AA`
 
 ## Deployment
 
@@ -77,17 +106,19 @@ Required GitHub secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, `VPS_HOST`, `V
 
 VPS location: `/opt/south-hills-coc/` with `docker-compose.yml` and `.env`
 
-## Local Development with Contact Form
+## Local Development
 
-To test the contact form locally:
+```bash
+# Terminal 1: Watch CSS
+npm run css:dev
 
-1. Update `hugo.toml` with test Turnstile site key
-2. Run Hugo: `hugo server -D`
-3. In another terminal, run the API with test env vars:
-   ```bash
-   cd api
-   TURNSTILE_SECRET="1x0000000000000000000000000000000AA" \
-   ALLOWED_ORIGIN="http://localhost:1313" \
-   go run .
-   ```
-4. Note: Emails won't send without valid Postmark credentials
+# Terminal 2: Run server with template hot-reload
+APP_ENV=development go run ./cmd/server
+# Server at http://localhost:8080
+
+# To test contact form with Turnstile:
+TURNSTILE_SECRET="1x0000000000000000000000000000000AA" \
+APP_ENV=development go run ./cmd/server
+```
+
+Note: Emails won't send without valid Postmark credentials.

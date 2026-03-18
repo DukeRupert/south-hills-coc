@@ -1,0 +1,63 @@
+{{define "schema"}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Church", "PlaceOfWorship"],
+  "name": "{{.Config.Title}}",
+  "description": "{{.Config.Description}}",
+  "url": "{{.Config.BaseURL}}",
+  "telephone": "{{.Config.Phone}}",
+  "email": "{{.Config.Email}}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{.Config.Street}}",
+    "addressLocality": "{{.Config.City}}",
+    "addressRegion": "{{.Config.Region}}",
+    "postalCode": "{{.Config.PostalCode}}",
+    "addressCountry": "{{.Config.Country}}"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": {{.Config.Latitude}},
+    "longitude": {{.Config.Longitude}}
+  },
+  "hasMap": "https://www.google.com/maps/search/?api=1&query={{.Config.Latitude}},{{.Config.Longitude}}",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "09:30",
+      "closes": "12:00",
+      "description": "Bible Class at 9:30 AM, Worship Service at 10:30 AM"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Tuesday",
+      "opens": "18:00",
+      "closes": "20:00",
+      "description": "Celebrate Recovery at 6:00 PM"
+    }
+  ],
+  "sameAs": [
+    "{{.Config.YouTubeURL}}"
+  ],
+  "image": "{{.Config.BaseURL}}images/logo-main.png",
+  "priceRange": "Free"
+}
+</script>
+{{if .IsHome}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{.Config.Title}}",
+  "url": "{{.Config.BaseURL}}",
+  "description": "{{.Config.Description}}",
+  "publisher": {
+    "@type": "Church",
+    "name": "{{.Config.Title}}"
+  }
+}
+</script>
+{{end}}
+{{end}}

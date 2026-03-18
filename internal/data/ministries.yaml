@@ -1,0 +1,37 @@
+growth:
+  - name: Women's Ministry
+    slug: womens
+    description: "Bible study, fellowship, and relationship-building through small group studies. Women of all ages grow together in faith and friendship."
+    contact: office@southhillscoc.org
+
+  - name: Men's Ministry
+    slug: mens
+    description: "Weekly gathering Tuesdays at 7:00 AM for Bible study and discussion. Monthly men's breakfast (first Saturday). Annual statewide retreat in May."
+    contact: office@southhillscoc.org
+
+nextGeneration:
+  - name: Youth Ministry
+    slug: youth
+    description: "Sunday morning classes for middle and high school students. Monthly fellowship and discipleship events. Emphasis on equipping parents in faith development."
+    contact: office@southhillscoc.org
+
+  - name: Children's Ministry
+    slug: children
+    description: "Sunday children's church (age-appropriate worship). Children will stay in the worship service until after communion."
+    contact: office@southhillscoc.org
+
+service:
+  - name: Local Service
+    slug: local-service
+    description: "Partnerships with God's Love, Family Promise, Options Clinic, Hope House, Angel Tree. Community knitting and sewing groups. Weekly Bible studies at Edgewood Helena."
+    contact: office@southhillscoc.org
+
+  - name: Global Missions
+    slug: global-missions
+    description: "Support for Rhakeem Harris in Amman, Jordan (Master of Divinity student)."
+    contact: office@southhillscoc.org
+
+  - name: Celebrate Recovery
+    slug: celebrate-recovery
+    description: "Faith based program that has the intention of calling us all to a deeper relationship with Jesus. Addresses addiction and personal struggles."
+    contact: Celebraterecovery.shcoc@gmail.com

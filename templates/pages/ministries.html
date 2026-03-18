@@ -1,0 +1,59 @@
+{{define "content"}}
+<div class="page-header">
+  <div class="container">
+    <h1>{{.Title}}</h1>
+    <p>{{.Description}}</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <p>At South Hills, we believe everyone has a place to belong and a way to serve. Our ministries provide opportunities for spiritual growth, fellowship, and service to our community.</p>
+
+    <div class="ministry-category">
+      <h2>Growth &amp; Fellowship</h2>
+      <div class="card-grid">
+        {{range .Ministries.Growth}}
+        <div class="card">
+          <div class="card-content">
+            <h3>{{.Name}}</h3>
+            <p>{{.Description}}</p>
+            {{if .Contact}}<p><strong>Contact:</strong> <a href="mailto:{{.Contact}}">{{.Contact}}</a></p>{{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+
+    <div class="ministry-category">
+      <h2>Next Generation</h2>
+      <div class="card-grid">
+        {{range .Ministries.NextGeneration}}
+        <div class="card">
+          <div class="card-content">
+            <h3>{{.Name}}</h3>
+            <p>{{.Description}}</p>
+            {{if .Contact}}<p><strong>Contact:</strong> <a href="mailto:{{.Contact}}">{{.Contact}}</a></p>{{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+
+    <div class="ministry-category">
+      <h2>Service &amp; Support</h2>
+      <div class="card-grid">
+        {{range .Ministries.Service}}
+        <div class="card">
+          <div class="card-content">
+            <h3>{{.Name}}</h3>
+            <p>{{.Description}}</p>
+            {{if .Contact}}<p><strong>Contact:</strong> <a href="mailto:{{.Contact}}">{{.Contact}}</a></p>{{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}
