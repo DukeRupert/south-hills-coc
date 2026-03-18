@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>South Hills Church of Christ — UI Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rust:       #975849;
+      --rust-dark:  #7A4639;
+      --rust-pale:  #FFDAD1;
+      --sage:       #48967D;
+      --sage-dark:  #35413D;
+      --brown:      #57443F;
+      --stone:      #F4F0EB;
+      --stone-mid:  #EAE5DE;
+      --stone-dark: #C5C0BA;
+      --ink:        #2B2B28;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--stone);
+      color: var(--ink);
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      border-bottom: 2px solid var(--sage-dark);
+      padding-bottom: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .page-header-eyebrow {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--sage);
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 0.5rem;
+    }
+    .page-header-eyebrow::before { content:''; display:block; width:20px; height:1px; background: var(--sage); }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px; font-weight: 300; color: var(--sage-dark); line-height: 1.1;
+    }
+    .page-header p {
+      font-size: 13px; font-weight: 300; color: var(--brown);
+      margin-top: 0.5rem; line-height: 1.7;
+    }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 3.5rem; }
+    .section-label {
+      font-size: 9px; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--sage);
+      border-bottom: 0.5px solid var(--stone-dark);
+      padding-bottom: 0.6rem; margin-bottom: 1.75rem;
+    }
+
+    /* ── PALETTE ── */
+    .palette-row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .swatch { display: flex; flex-direction: column; gap: 7px; }
+    .swatch-block { width: 72px; height: 72px; border-radius: 6px; border: 0.5px solid rgba(0,0,0,0.08); }
+    .swatch-name { font-size: 10.5px; font-weight: 500; color: var(--ink); }
+    .swatch-hex  { font-size: 10px; font-weight: 300; color: var(--brown); letter-spacing: 0.04em; }
+    .swatch-role { font-size: 9.5px; font-weight: 300; color: var(--sage-dark); margin-top: 1px; }
+
+    /* ── TYPOGRAPHY ── */
+    .type-rows { display: flex; flex-direction: column; gap: 2rem; }
+    .type-row { display: grid; grid-template-columns: 160px 1fr; gap: 1.5rem; align-items: baseline; }
+    .type-meta { font-size: 10.5px; font-weight: 400; color: var(--brown); line-height: 1.7; }
+    .type-meta strong { display: block; font-weight: 500; color: var(--ink); font-size: 11px; margin-bottom: 2px; }
+
+    .t-h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; color: var(--sage-dark); line-height: 1.05; }
+    .t-h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--sage-dark); line-height: 1.1; }
+    .t-h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--brown); line-height: 1.2; font-style: italic; }
+    .t-eyebrow {
+      font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--sage);
+      display: flex; align-items: center; gap: 7px;
+    }
+    .t-eyebrow::before { content:''; display:block; width:18px; height:1px; background: var(--sage); }
+    .t-body { font-family: 'Jost', sans-serif; font-size: 13.5px; font-weight: 300; color: var(--brown); line-height: 1.8; }
+    .t-small { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: var(--brown); letter-spacing: 0.04em; }
+    .t-nav { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 300; color: #7A9B90; letter-spacing: 0.06em; }
+
+    /* ── COMPONENTS ── */
+    .components-grid { display: flex; flex-direction: column; gap: 2.5rem; }
+    .comp-label { font-size: 10px; font-weight: 500; color: var(--brown); margin-bottom: 10px; letter-spacing: 0.04em; }
+
+    /* Nav */
+    .comp-nav {
+      background: var(--sage-dark); border-radius: 8px;
+      padding: 0.85rem 1.25rem; display: flex; align-items: center; gap: 0.9rem;
+    }
+    .nav-mark {
+      width: 28px; height: 28px;
+      border: 1.5px solid var(--rust-pale); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .nav-mark svg { width: 13px; height: 13px; }
+    .nav-wordmark { color: #E6E8E4; font-size: 13px; font-weight: 400; letter-spacing: 0.04em; line-height: 1.25; }
+    .nav-wordmark small { display: block; font-size: 9px; font-weight: 300; letter-spacing: 0.11em; color: #7A9B90; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.4rem; margin-left: auto; }
+    .nav-links a { color: #7A9B90; font-size: 11px; letter-spacing: 0.06em; text-decoration: none; font-weight: 300; }
+    .nav-links a.active { color: #E6E8E4; }
+
+    /* Sidebar */
+    .comp-sidebar {
+      background: var(--sage-dark); border-radius: 8px;
+      padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;
+      max-width: 260px;
+    }
+    .sidebar-label { font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase; color: #7A9B90; font-weight: 500; margin-bottom: 2px; }
+    .sidebar-val { font-size: 13px; color: #D8E0D8; font-weight: 400; }
+    .sidebar-divider { height: 0.5px; background: rgba(255,255,255,0.1); }
+    .sidebar-pill {
+      display: inline-block; background: var(--rust); color: var(--rust-pale);
+      font-size: 10px; padding: 3px 10px; border-radius: 2px; letter-spacing: 0.05em; margin-top: 4px;
+    }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--sage-dark); color: #E6E8E4; border: none;
+      padding: 9px 20px; font-size: 11px; letter-spacing: 0.08em;
+      font-family: 'Jost', sans-serif; cursor: pointer; border-radius: 3px; font-weight: 400;
+    }
+    .btn-ghost {
+      background: transparent; color: var(--rust); border: 1px solid var(--rust);
+      padding: 8px 18px; font-size: 11px; letter-spacing: 0.08em;
+      font-family: 'Jost', sans-serif; cursor: pointer; border-radius: 3px; font-weight: 400;
+    }
+    .btn-sage {
+      background: var(--sage); color: #E6F0EC; border: none;
+      padding: 9px 20px; font-size: 11px; letter-spacing: 0.08em;
+      font-family: 'Jost', sans-serif; cursor: pointer; border-radius: 3px; font-weight: 400;
+    }
+    .btn-text {
+      background: none; border: none; color: var(--sage);
+      font-size: 11.5px; font-family: 'Jost', sans-serif;
+      cursor: pointer; letter-spacing: 0.04em; font-weight: 400; padding: 0;
+    }
+
+    /* Cards */
+    .cards-row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .card-sermon {
+      background: var(--stone); border: 0.5px solid var(--stone-dark);
+      border-radius: 8px; padding: 1.1rem; width: 210px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .card-series-tag {
+      font-size: 9px; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--sage);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .card-series-tag::before { content:''; display:block; width:12px; height:1px; background: var(--sage); }
+    .card-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 400; color: var(--sage-dark); line-height: 1.25; }
+    .card-meta { font-size: 10.5px; font-weight: 300; color: var(--brown); }
+    .card-link { font-size: 10.5px; color: var(--rust); font-weight: 400; margin-top: 4px; letter-spacing: 0.03em; }
+
+    .card-info {
+      background: var(--stone-mid);
+      border-left: 2px solid var(--sage); border-radius: 0 4px 4px 0;
+      padding: 10px 14px; width: 210px;
+    }
+    .card-info-t { font-size: 12.5px; font-weight: 400; color: var(--sage-dark); }
+    .card-info-s { font-size: 11px; font-weight: 300; color: var(--brown); margin-top: 2px; }
+
+    /* Tags */
+    .tags-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .tag { font-size: 10px; padding: 4px 12px; border-radius: 2px; letter-spacing: 0.06em; font-weight: 400; }
+    .tag-rust  { background: var(--rust-pale); color: var(--rust-dark); }
+    .tag-sage  { background: #D6EDE6; color: #2A6655; }
+    .tag-stone { background: var(--stone-mid); color: var(--brown); }
+
+    /* ── USAGE RULES ── */
+    .rules { display: flex; flex-direction: column; gap: 12px; }
+    .rule { display: grid; grid-template-columns: 90px 1fr; gap: 14px; align-items: baseline; }
+    .rule-who {
+      font-size: 9.5px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 4px 8px; border-radius: 2px; text-align: center;
+    }
+    .rule-who.rust  { background: var(--rust-pale); color: var(--rust-dark); }
+    .rule-who.sage  { background: #D6EDE6; color: #2A6655; }
+    .rule-who.dark  { background: var(--sage-dark); color: #7A9B90; }
+    .rule-who.stone { background: var(--stone-mid); color: var(--brown); }
+    .rule-desc { font-size: 12.5px; font-weight: 300; color: var(--brown); line-height: 1.75; }
+    .rule-desc strong { font-weight: 500; color: var(--ink); }
+
+    /* ── FOOTER ── */
+    .guide-footer {
+      border-top: 0.5px solid var(--stone-dark); margin-top: 3.5rem; padding-top: 1.25rem;
+      font-size: 10.5px; font-weight: 300; color: var(--stone-dark); letter-spacing: 0.04em;
+      display: flex; justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-eyebrow">UI Guide · Concept A</div>
+    <h1>South Hills Church of Christ</h1>
+    <p>Slate + Warm Stone — brand direction, color palette, type scale, and component reference.</p>
+  </div>
+
+  <!-- PALETTE -->
+  <div class="section">
+    <div class="section-label">Color Palette</div>
+    <div class="palette-row">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#975849;"></div>
+        <div class="swatch-name">Rust</div>
+        <div class="swatch-hex">#975849</div>
+        <div class="swatch-role">Brand mark · detail</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#7A4639;"></div>
+        <div class="swatch-name">Rust Dark</div>
+        <div class="swatch-hex">#7A4639</div>
+        <div class="swatch-role">Hover · pressed state</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#FFDAD1; border-color:#ddd;"></div>
+        <div class="swatch-name">Rust Pale</div>
+        <div class="swatch-hex">#FFDAD1</div>
+        <div class="swatch-role">Tags · type on rust</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#48967D;"></div>
+        <div class="swatch-name">Sage</div>
+        <div class="swatch-hex">#48967D</div>
+        <div class="swatch-role">Eyebrows · action color</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#35413D;"></div>
+        <div class="swatch-name">Sage Dark</div>
+        <div class="swatch-hex">#35413D</div>
+        <div class="swatch-role">Nav · sidebar · primary btn</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#57443F;"></div>
+        <div class="swatch-name">Brown</div>
+        <div class="swatch-hex">#57443F</div>
+        <div class="swatch-role">Body text · meta</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#F4F0EB; border-color:#ddd;"></div>
+        <div class="swatch-name">Stone</div>
+        <div class="swatch-hex">#F4F0EB</div>
+        <div class="swatch-role">Page background</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#EAE5DE; border-color:#ddd;"></div>
+        <div class="swatch-name">Stone Mid</div>
+        <div class="swatch-hex">#EAE5DE</div>
+        <div class="swatch-role">Cards · info panels</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">Typography</div>
+    <div class="type-rows">
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>H1 — Page title</strong>
+          Cormorant Garamond 300<br>42px / lh 1.05<br>color: Sage Dark
+        </div>
+        <div class="t-h1">Gathered around<br>the Word.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>H2 — Section title</strong>
+          Cormorant Garamond 300<br>28px / lh 1.1<br>color: Sage Dark
+        </div>
+        <div class="t-h2">Recent Sermons</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>H3 — Card title</strong>
+          Cormorant Garamond 400 italic<br>20px / lh 1.2<br>color: Brown
+        </div>
+        <div class="t-h3">Isaiah: The Faithful City</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Eyebrow</strong>
+          Jost 500<br>10px / ls 0.14em<br>color: Sage
+        </div>
+        <div class="t-eyebrow">Helena, Montana</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Body</strong>
+          Jost 300<br>13.5px / lh 1.8<br>color: Brown
+        </div>
+        <div class="t-body">A Church of Christ congregation on the south side of Helena — committed to scripture, to one another, and to this city.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Small / meta</strong>
+          Jost 300<br>11px / ls 0.04em<br>color: Brown
+        </div>
+        <div class="t-small">Sunday 10:00 am · 640 S. Hills Blvd</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <strong>Nav links</strong>
+          Jost 300<br>11px / ls 0.06em<br>color: #7A9B90
+        </div>
+        <div class="t-nav">Visit · Sermons · Connect · Give</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTS -->
+  <div class="section">
+    <div class="section-label">Components</div>
+    <div class="components-grid">
+
+      <div>
+        <div class="comp-label">Navigation bar</div>
+        <div class="comp-nav">
+          <div class="nav-mark">
+            <svg viewBox="0 0 13 13" fill="none">
+              <path d="M6.5 1L12 4V9L6.5 12L1 9V4L6.5 1Z" stroke="#FFDAD1" stroke-width="1.2" fill="none"/>
+              <circle cx="6.5" cy="6.5" r="1.5" fill="#FFDAD1"/>
+            </svg>
+          </div>
+          <div class="nav-wordmark">South Hills <small>Church of Christ</small></div>
+          <nav class="nav-links">
+            <a href="#" class="active">Visit</a>
+            <a href="#">Sermons</a>
+            <a href="#">Connect</a>
+            <a href="#">Give</a>
+          </nav>
+        </div>
+      </div>
+
+      <div>
+        <div class="comp-label">Sidebar / info panel</div>
+        <div class="comp-sidebar">
+          <div>
+            <div class="sidebar-label">Sunday Morning</div>
+            <div class="sidebar-val">10:00 am</div>
+            <span class="sidebar-pill">640 S. Hills Blvd</span>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div>
+            <div class="sidebar-label">Wednesday Evening</div>
+            <div class="sidebar-val">7:00 pm</div>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div>
+            <div class="sidebar-label">Current Series</div>
+            <div class="sidebar-val">Isaiah: The Faithful City</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="comp-label">Buttons</div>
+        <div class="btn-row">
+          <button class="btn-primary">Plan your visit</button>
+          <button class="btn-ghost">Watch sermons</button>
+          <button class="btn-sage">Find us Sunday</button>
+          <button class="btn-text">Learn more →</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="comp-label">Cards</div>
+        <div class="cards-row">
+          <div class="card-sermon">
+            <div class="card-series-tag">Isaiah series</div>
+            <div class="card-title">The Faithful City</div>
+            <div class="card-meta">Mar 9, 2025 · 38 min</div>
+            <div class="card-link">Listen →</div>
+          </div>
+          <div class="card-sermon">
+            <div class="card-series-tag">Isaiah series</div>
+            <div class="card-title">A Fast Worth Keeping</div>
+            <div class="card-meta">Mar 2, 2025 · 41 min</div>
+            <div class="card-link">Listen →</div>
+          </div>
+          <div class="card-info">
+            <div class="card-info-t">Sunday Gathering</div>
+            <div class="card-info-s">10:00 am · 640 S. Hills Blvd</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="comp-label">Tags</div>
+        <div class="tags-row">
+          <span class="tag tag-rust">640 S. Hills Blvd</span>
+          <span class="tag tag-sage">Isaiah series</span>
+          <span class="tag tag-stone">All ages welcome</span>
+          <span class="tag tag-rust">Church of Christ</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- USAGE RULES -->
+  <div class="section">
+    <div class="section-label">Color Usage Rules</div>
+    <div class="rules">
+      <div class="rule">
+        <span class="rule-who rust">Rust</span>
+        <span class="rule-desc"><strong>Detail only.</strong> Logo mark, ghost button border, text links, location pill, card listen links. Never use as a background field larger than a pill or badge.</span>
+      </div>
+      <div class="rule">
+        <span class="rule-who sage">Sage</span>
+        <span class="rule-desc"><strong>Accent + action.</strong> Eyebrow lines, series tags, sage CTA button, left-border on info cards. The primary "look here" color — keep it purposeful.</span>
+      </div>
+      <div class="rule">
+        <span class="rule-who dark">Sage Dark</span>
+        <span class="rule-desc"><strong>Structure.</strong> Nav bar, sidebar panel, primary button background, H1/H2 color. The heaviest visual weight on the page.</span>
+      </div>
+      <div class="rule">
+        <span class="rule-who stone">Stone</span>
+        <span class="rule-desc"><strong>Surface.</strong> Page background (#F4F0EB), sermon cards and info panels (#EAE5DE). Keeps everything warm without competing with any accent color.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-footer">
+    <span>South Hills Church of Christ · UI Guide · Concept A</span>
+    <span>Firefly Software</span>
+  </div>
+
+</body>
+</html>

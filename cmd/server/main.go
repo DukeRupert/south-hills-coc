@@ -30,6 +30,7 @@ func main() {
 	mux.HandleFunc("GET /robots.txt", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/robots.txt")
 	})
+	mux.HandleFunc("GET /sitemap.xml", h.Sitemap)
 
 	// Pages
 	page(mux, "/", h.Home)

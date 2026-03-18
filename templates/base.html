@@ -19,7 +19,7 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="{{if .IsHome}}website{{else}}article{{end}}">
-  <meta property="og:url" content="{{.Config.BaseURL}}">
+  <meta property="og:url" content="{{.Config.BaseURL}}{{if not .IsHome}}{{slice .CurrentPath 1}}{{end}}">
   <meta property="og:title" content="{{if .IsHome}}{{.Config.Title}} | Helena, MT | Sunday Worship 10:30 AM{{else}}{{.Title}} | {{.Config.Title}}{{end}}">
   <meta property="og:description" content="{{if .Description}}{{.Description}}{{else}}{{.Config.Description}}{{end}}">
   <meta property="og:image" content="{{.Config.BaseURL}}images/og-image.jpg">
@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="{{.Config.BaseURL}}images/og-image.jpg">
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="{{.Config.BaseURL}}">
+  <link rel="canonical" href="{{.Config.BaseURL}}{{if not .IsHome}}{{slice .CurrentPath 1}}{{end}}">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">

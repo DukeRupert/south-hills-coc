@@ -1,14 +1,16 @@
 package handlers
 
 import (
+	"encoding/xml"
 	"net/http"
 	"time"
 )
 
 func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
 	h.render(w, "home", PageData{
-		Title:  "South Hills Church of Christ | Helena, MT | Sunday Worship 10:30 AM",
-		IsHome: true,
+		Title:       "South Hills Church of Christ | Helena, MT | Sunday Worship 10:30 AM",
+		IsHome:      true,
+		CurrentPath: "/",
 	})
 }
 
@@ -85,4 +87,51 @@ func (h *Handler) Events(w http.ResponseWriter, r *http.Request) {
 			Month:      month,
 		},
 	})
+}
+
+type sitemapURL struct {
+	Loc        string `xml:"loc"`
+	ChangeFreq string `xml:"changefreq"`
+	Priority   string `xml:"priority"`
+}
+
+type sitemapURLSet struct {
+	XMLName xml.Name     `xml:"urlset"`
+	XMLNS   string       `xml:"xmlns,attr"`
+	URLs    []sitemapURL `xml:"url"`
+}
+
+func (h *Handler) Sitemap(w http.ResponseWriter, r *http.Request) {
+	pages := []struct {
+		path     string
+		freq     string
+		priority string
+	}{
+		{"/", "weekly", "1.0"},
+		{"/visit/", "monthly", "0.9"},
+		{"/about/", "monthly", "0.7"},
+		{"/about/leadership/", "monthly", "0.6"},
+		{"/about/doctrine/", "monthly", "0.5"},
+		{"/ministries/", "monthly", "0.7"},
+		{"/events/", "weekly", "0.8"},
+		{"/contact/", "monthly", "0.7"},
+	}
+
+	var urls []sitemapURL
+	for _, p := range pages {
+		urls = append(urls, sitemapURL{
+			Loc:        h.Config.BaseURL + p.path[1:],
+			ChangeFreq: p.freq,
+			Priority:   p.priority,
+		})
+	}
+
+	sitemap := sitemapURLSet{
+		XMLNS: "http://www.sitemaps.org/schemas/sitemap/0.9",
+		URLs:  urls,
+	}
+
+	w.Header().Set("Content-Type", "application/xml; charset=utf-8")
+	w.Write([]byte(xml.Header))
+	xml.NewEncoder(w).Encode(sitemap)
 }
