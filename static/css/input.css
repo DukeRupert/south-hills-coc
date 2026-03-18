@@ -620,6 +620,90 @@ address {
   margin-top: auto;
 }
 
+/* Page Intro (replaces dark page-header on inner pages) */
+.page-intro {
+  background: var(--color-background);
+  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+}
+
+.page-intro .container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.page-intro h1 {
+  color: var(--color-heading);
+  margin-bottom: var(--spacing-xs);
+}
+
+.page-intro p {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--color-text);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+/* Expect List (vertical, icon-left) */
+.expect-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 640px;
+}
+
+.expect-list-item {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+.expect-list-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.expect-list-item h3 {
+  margin-bottom: 4px;
+}
+
+.expect-list-item p {
+  font-size: 0.8125rem;
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* FAQ Grid (updated styling) */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.faq-item {
+  background: var(--color-background);
+  border: 0.5px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.faq-item h3 {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--color-heading);
+  margin-bottom: 6px;
+}
+
+.faq-item p {
+  font-size: 0.8125rem;
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0;
+}
+
 /* Section Description */
 .section-desc {
   font-size: 0.875rem;
@@ -763,16 +847,15 @@ address {
 }
 
 .card {
-  background: white;
+  background: var(--color-background-alt);
+  border: 0.5px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border-color: var(--color-sage);
 }
 
 .card-warm {
@@ -825,10 +908,10 @@ address {
 
 .leader-card {
   text-align: center;
-  background: white;
+  background: var(--color-background);
+  border: 0.5px solid var(--color-border);
   border-radius: 8px;
   padding: var(--spacing-md);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .leader-image {
@@ -1252,6 +1335,9 @@ address {
 
 .leadership-section-title {
   margin-top: var(--spacing-lg);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--color-heading);
 }
 
 .section-title-centered {
@@ -1380,6 +1466,10 @@ address {
 
   .connect-card:first-child {
     grid-row: auto;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
   }
 
   .two-column {
