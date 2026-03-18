@@ -3,14 +3,14 @@
 {{end}}
 
 {{define "content"}}
-<div class="page-header">
+<div class="page-intro">
   <div class="container">
+    <p class="eyebrow">Events &amp; Calendar</p>
     <h1>{{.Title}}</h1>
     <p>See what's happening at South Hills and request to reserve a space for your event.</p>
   </div>
 </div>
 
-<!-- Events Section -->
 <section class="section">
   <div class="container">
     <div id="events-view"
@@ -24,21 +24,20 @@
 
     <div class="reserve-cta">
       <p>Want to use the building for an event?</p>
-      <a href="#request-form" class="btn btn-primary">Request a Reservation</a>
+      <a href="#request-form" class="btn btn-primary">Request a reservation</a>
     </div>
   </div>
 </section>
 
-<!-- Reservation Form Section -->
 <section class="section section-alt" id="request-form">
   <div class="container">
     <div class="two-column">
       <div>
+        <p class="eyebrow">Building Use</p>
         <h2>Our Building Is Your Building</h2>
         <p>Submit your request using the form and our administrative coordinator will follow up to confirm availability. Once approved, your event will be added to the building calendar.</p>
 
-        <div class="service-times-box">
-          <h3>Available Spaces</h3>
+        <div class="info-card" style="margin-top: var(--spacing-md);">
           <p><strong>Sanctuary</strong> — Main worship area</p>
           <p><strong>Lower Hall</strong> — Fellowship hall with kitchen</p>
           <p><strong>Loft</strong> — Upstairs meeting room</p>
@@ -47,7 +46,7 @@
       </div>
 
       <div>
-        <h2 id="form-heading">Request a Reservation</h2>
+        <h2 id="form-heading" style="font-style: normal;">Request a Reservation</h2>
         <form class="contact-form" id="reserve-form" aria-labelledby="form-heading"
               hx-post="/reserve"
               hx-target="#reserve-result"
@@ -103,7 +102,7 @@
             </div>
 
             <div class="form-group btn-wrapper">
-              <button type="submit" class="btn btn-primary">Submit Request</button>
+              <button type="submit" class="btn btn-primary">Submit request</button>
             </div>
 
             <div id="reserve-result" role="alert" aria-live="polite"></div>
