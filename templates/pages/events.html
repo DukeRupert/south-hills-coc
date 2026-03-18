@@ -53,45 +53,48 @@
               hx-swap="innerHTML"
               hx-on::after-request="if(event.detail.successful && event.detail.xhr.status === 200 && document.querySelector('#reserve-result .reserve-success')) this.reset()">
 
-            <div class="form-group">
-              <label for="name">Name <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
-              <input type="text" id="name" name="name" required maxlength="100" aria-required="true" autocomplete="name">
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
-              <input type="email" id="email" name="email" required maxlength="100" aria-required="true" autocomplete="email">
-            </div>
-
-            <div class="form-group">
-              <label for="phone">Phone <span class="optional">(optional)</span></label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel">
-            </div>
-
-            <div class="form-group">
-              <label for="space">Space <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
-              <select id="space" name="space" required aria-required="true">
-                <option value="">Select a space...</option>
-                <option value="sanctuary">Sanctuary</option>
-                <option value="lower">Lower Hall</option>
-                <option value="loft">Loft</option>
-                <option value="all">Entire Building</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="date">Date <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
-              <input type="date" id="date" name="date" required aria-required="true">
-            </div>
-
-            <div class="form-row">
+            <div class="form-row-pair">
               <div class="form-group">
-                <label for="start">Start Time <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
-                <input type="time" id="start" name="start" required aria-required="true">
+                <label for="name">Name <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                <input type="text" id="name" name="name" required maxlength="100" aria-required="true" autocomplete="name">
               </div>
               <div class="form-group">
-                <label for="end">End Time <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
-                <input type="time" id="end" name="end" required aria-required="true">
+                <label for="email">Email <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                <input type="email" id="email" name="email" required maxlength="100" aria-required="true" autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-row-pair">
+              <div class="form-group">
+                <label for="phone">Phone <span class="optional">(optional)</span></label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label for="space">Space <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                <select id="space" name="space" required aria-required="true">
+                  <option value="">Select a space...</option>
+                  <option value="sanctuary">Sanctuary</option>
+                  <option value="lower">Lower Hall</option>
+                  <option value="loft">Loft</option>
+                  <option value="all">Entire Building</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-pair">
+              <div class="form-group">
+                <label for="date">Date <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                <input type="date" id="date" name="date" required aria-required="true">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="start">Start <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                  <input type="time" id="start" name="start" required aria-required="true">
+                </div>
+                <div class="form-group">
+                  <label for="end">End <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+                  <input type="time" id="end" name="end" required aria-required="true">
+                </div>
               </div>
             </div>
 

@@ -1939,7 +1939,28 @@ address {
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+/* Compact reservation form for desktop */
+#reserve-form .form-group {
+  margin-bottom: var(--spacing-sm);
+}
+
+#reserve-form .form-group textarea {
+  min-height: 100px;
+}
+
+@media (min-width: 769px) {
+  #reserve-form .form-row-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  #reserve-form .form-row-pair .form-group {
+    margin-bottom: 0;
+  }
 }
 
 .form-group input[type="date"],
