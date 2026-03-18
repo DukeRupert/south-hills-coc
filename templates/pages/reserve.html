@@ -36,7 +36,7 @@
               hx-post="/reserve"
               hx-target="#reserve-result"
               hx-swap="innerHTML"
-              hx-on::after-request="if(event.detail.successful && event.detail.xhr.status === 200 && document.querySelector('#reserve-result .reserve-success')) this.reset()">
+              hx-on::after-request="if(event.detail.successful && event.detail.xhr.status === 200 && document.querySelector('#reserve-result .reserve-success')) { this.reset(); try { if (window.plausible) plausible('Reservation Request'); } catch (_) {} }">
 
           <div class="form-group">
             <label for="name">Name <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>

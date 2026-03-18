@@ -159,6 +159,7 @@
         setStatus('Thank you! Your message has been sent.', false);
         form.reset();
         try { if (window.turnstile) turnstile.reset(); } catch (_) {}
+        try { if (window.plausible) plausible('Contact Form Submission'); } catch (_) {}
       } else {
         var data = {};
         try { data = await response.json(); } catch (_) {}
