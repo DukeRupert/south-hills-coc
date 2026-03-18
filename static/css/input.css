@@ -448,6 +448,23 @@ address {
   height: 400px;
   object-fit: cover;
   display: block;
+  animation: ken-burns 25s ease-in-out infinite alternate;
+}
+
+@keyframes ken-burns {
+  0%   { transform: scale(1)   translate(0, 0); }
+  100% { transform: scale(1.05) translate(-1%, -0.5%); }
+}
+
+@keyframes scripture-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Eyebrow */
@@ -605,11 +622,15 @@ address {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  transition: border-color var(--duration-normal) var(--ease-default);
+  transition: border-color var(--duration-normal) var(--ease-default),
+              transform var(--duration-normal) cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow var(--duration-normal) cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .connect-card:hover {
   border-color: var(--color-sage);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(87, 68, 63, 0.08);
 }
 
 .connect-card:first-child {
@@ -787,10 +808,17 @@ address {
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
   text-decoration: none;
-  transition: background-color var(--duration-normal) var(--ease-default), color var(--duration-normal) var(--ease-default), border-color var(--duration-normal) var(--ease-default);
+  transition: background-color var(--duration-normal) var(--ease-default),
+              color var(--duration-normal) var(--ease-default),
+              border-color var(--duration-normal) var(--ease-default),
+              transform var(--duration-fast) var(--ease-default);
   cursor: pointer;
   border: none;
   font-family: var(--font-body);
+}
+
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn-primary {
@@ -943,6 +971,13 @@ address {
   border: 0.5px solid var(--color-border);
   border-radius: 8px;
   padding: var(--spacing-md);
+  transition: transform var(--duration-normal) cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow var(--duration-normal) cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.leader-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(87, 68, 63, 0.08);
 }
 
 .leader-image {
@@ -1204,6 +1239,15 @@ address {
   padding: var(--spacing-lg) var(--spacing-md);
 }
 
+/* Scroll-driven fade-in for scripture blocks (progressive enhancement) */
+@supports (animation-timeline: view()) {
+  .scripture-block {
+    animation: scripture-enter 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+}
+
 .scripture-block p {
   font-family: var(--font-scripture);
   font-size: 1.5rem;
@@ -1445,12 +1489,37 @@ address {
   font-weight: 400;
 }
 
+#form-status:empty {
+  display: none;
+}
+
 .form-status-success {
   color: var(--color-success);
+  background: rgba(72, 150, 125, 0.08);
+  padding: var(--spacing-sm);
+  border-radius: 4px;
+  border-left: 2px solid var(--color-sage);
+  animation: status-appear 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .form-status-error {
   color: var(--color-error);
+  background: rgba(185, 28, 28, 0.04);
+  padding: var(--spacing-sm);
+  border-radius: 4px;
+  border-left: 2px solid var(--color-error);
+  animation: status-appear 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes status-appear {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .img-card {
@@ -2104,6 +2173,7 @@ address {
   padding: var(--spacing-md);
   border-radius: 8px;
   margin-top: var(--spacing-sm);
+  animation: status-appear 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .reserve-result-box h3 {
