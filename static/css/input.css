@@ -258,10 +258,11 @@ img {
 }
 
 .nav-link {
-  font-weight: 300;
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
-  color: var(--color-on-dark-dim);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-on-dark-muted);
   padding: var(--spacing-xs) 0;
   border-bottom: 2px solid transparent;
   transition: border-color var(--duration-slow) var(--ease-default), color var(--duration-normal) var(--ease-default);
