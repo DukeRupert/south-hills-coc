@@ -1,0 +1,24 @@
+{{define "reserve-result"}}
+{{if eq .Status "success"}}
+<div class="reserve-success reserve-result-box">
+  <h3>Request Sent</h3>
+  <p>Your request has been sent. Chanté will be in touch shortly to confirm availability.</p>
+</div>
+
+{{else if eq .Status "conflict"}}
+<div class="reserve-conflict reserve-result-box">
+  <h3>Scheduling Conflict</h3>
+  {{if .Conflict}}
+  <p>The <strong>{{.Conflict.Space}}</strong> is already booked for
+    <strong>"{{.Conflict.Summary}}"</strong>
+    from {{formatTime .Conflict.Start}} – {{formatTime .Conflict.End}} that day.</p>
+  {{end}}
+  <p>Please choose a different time or space.</p>
+</div>
+
+{{else}}
+<div class="reserve-error reserve-result-box">
+  <p>{{.Message}}</p>
+</div>
+{{end}}
+{{end}}

@@ -1243,6 +1243,88 @@ address {
   color: var(--color-text-light);
 }
 
+/* Reservation Form */
+.form-group select {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: white;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(151, 88, 73, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.form-group input[type="date"],
+.form-group input[type="time"] {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.form-group input[type="date"]:focus,
+.form-group input[type="time"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(151, 88, 73, 0.1);
+}
+
+/* Reservation result states */
+.reserve-result-box {
+  padding: var(--spacing-md);
+  border-radius: 8px;
+  margin-top: var(--spacing-sm);
+}
+
+.reserve-result-box h3 {
+  margin-bottom: var(--spacing-xs);
+}
+
+.reserve-result-box p {
+  margin: 0 0 var(--spacing-xs);
+}
+
+.reserve-success {
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+}
+
+.reserve-success h3 {
+  color: #065F46;
+}
+
+.reserve-conflict {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  color: #92400E;
+}
+
+.reserve-conflict h3 {
+  color: #92400E;
+}
+
+.reserve-error {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #991B1B;
+}
+
 /* Responsive - Small Phones */
 @media (max-width: 480px) {
   .hero h1 {

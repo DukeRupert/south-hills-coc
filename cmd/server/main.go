@@ -34,11 +34,13 @@ func main() {
 	page(mux, "/about/doctrine/", h.Doctrine)
 	page(mux, "/ministries/", h.Ministries)
 	page(mux, "/calendar/", h.Calendar)
+	page(mux, "/reserve/", h.Reserve)
 	page(mux, "/events/", h.Events)
 	page(mux, "/contact/", h.Contact)
 
 	// htmx endpoints
 	mux.HandleFunc("GET /calendar/events", h.CalendarEvents)
+	mux.HandleFunc("POST /reserve", h.HandleReserve)
 
 	// API
 	mux.HandleFunc("/api/contact", h.HandleContact)

@@ -33,6 +33,7 @@ type Config struct {
 	PostmarkToken   string
 	FromEmail       string
 	ToEmail         string
+	AdminEmail      string
 	AllowedOrigin   string
 	TurnstileSecret string
 
@@ -72,6 +73,7 @@ func Load() *Config {
 		PostmarkToken:   os.Getenv("POSTMARK_TOKEN"),
 		FromEmail:       os.Getenv("FROM_EMAIL"),
 		ToEmail:         os.Getenv("TO_EMAIL"),
+		AdminEmail:      envOr("ADMIN_EMAIL", os.Getenv("TO_EMAIL")),
 		AllowedOrigin:   envOr("ALLOWED_ORIGIN", "http://localhost:8080"),
 		TurnstileSecret: os.Getenv("TURNSTILE_SECRET"),
 

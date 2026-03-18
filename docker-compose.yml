@@ -13,6 +13,7 @@ services:
       - ALLOWED_ORIGIN=${ALLOWED_ORIGIN:-https://www.southhillscoc.org}
       - TURNSTILE_SECRET=${TURNSTILE_SECRET}
       - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY:-0x4AAAAAACHhuM2lhHmWLq04}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
       - GCAL_API_KEY=${GCAL_API_KEY}
       - GCAL_CALENDAR_ID=${GCAL_CALENDAR_ID}
     restart: unless-stopped

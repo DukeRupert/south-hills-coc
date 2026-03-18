@@ -17,10 +17,11 @@ type Handler struct {
 	leadershipData *data.LeadershipData
 	ministriesData *data.MinistriesData
 	gcalService    *gcal.Service
-	templates      map[string]*template.Template
-	gridTemplate   *template.Template
-	templateDir    string
-	isDev          bool
+	templates            map[string]*template.Template
+	gridTemplate         *template.Template
+	reserveResultTemplate *template.Template
+	templateDir          string
+	isDev                bool
 }
 
 type PageData struct {
@@ -67,6 +68,7 @@ func New(cfg *config.Config) *Handler {
 
 	h.templates = h.parseAllTemplates()
 	h.gridTemplate = h.parseGridTemplate()
+	h.reserveResultTemplate = h.parseReserveResultTemplate()
 	return h
 }
 
@@ -79,7 +81,7 @@ func (h *Handler) parseAllTemplates() map[string]*template.Template {
 	pages := []string{
 		"home", "visit", "contact",
 		"about", "about-leadership", "about-doctrine",
-		"ministries", "events", "calendar",
+		"ministries", "events", "calendar", "reserve",
 	}
 
 	sharedFiles := []string{
@@ -122,6 +124,27 @@ func (h *Handler) getGridTemplate() *template.Template {
 		return h.parseGridTemplate()
 	}
 	return h.gridTemplate
+}
+
+func (h *Handler) parseReserveResultTemplate() *template.Template {
+	funcMap := template.FuncMap{
+		"safeHTML":    func(s string) template.HTML { return template.HTML(s) },
+		"currentYear": func() int { return time.Now().Year() },
+		"formatTime": func(t time.Time) string { return t.Format("3:04 PM") },
+	}
+	file := filepath.Join(h.templateDir, "partials", "reserve-result.html")
+	tmpl, err := template.New("").Funcs(funcMap).ParseFiles(file)
+	if err != nil {
+		log.Fatalf("failed to parse reserve-result template: %v", err)
+	}
+	return tmpl
+}
+
+func (h *Handler) getReserveResultTemplate() *template.Template {
+	if h.isDev {
+		return h.parseReserveResultTemplate()
+	}
+	return h.reserveResultTemplate
 }
 
 func (h *Handler) render(w http.ResponseWriter, page string, pd PageData) {
