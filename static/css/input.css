@@ -962,7 +962,11 @@ address {
 /* Leadership */
 .leadership-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* Cap the track width so short rows (2 staff, 2 deacons) don't stretch a
+     150px avatar across half the page. 4 x 272px + 3 x 2rem gap = 1184px,
+     which still fits the 1200px container, so Elders stays on one line. */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 272px));
+  justify-content: start;
   gap: var(--spacing-md);
 }
 
@@ -982,11 +986,14 @@ address {
 }
 
 .leader-image {
+  display: block;
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: var(--spacing-sm);
+  /* Tailwind preflight sets img { display: block }, so the card's
+     text-align: center does not center it — auto margins do. */
+  margin: 0 auto var(--spacing-sm);
 }
 
 .leader-name {
@@ -1693,6 +1700,12 @@ address {
   .leader-image {
     width: 120px;
     height: 120px;
+  }
+
+  /* Below the two-column threshold, let cards use the full width again
+     rather than leaving a 272px card pinned to the left. */
+  .leadership-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 
   .map-container {
