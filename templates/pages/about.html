@@ -19,12 +19,12 @@
       <div>
         <picture>
           <source type="image/webp"
-            srcset="/static/images/worship/congregation-400w.webp 400w,
-                    /static/images/worship/congregation-600w.webp 600w,
-                    /static/images/worship/congregation-800w.webp 800w,
-                    /static/images/worship/congregation-1200w.webp 1200w"
+            srcset="{{asset "images/worship/congregation-400w.webp"}} 400w,
+                    {{asset "images/worship/congregation-600w.webp"}} 600w,
+                    {{asset "images/worship/congregation-800w.webp"}} 800w,
+                    {{asset "images/worship/congregation-1200w.webp"}} 1200w"
             sizes="(max-width: 768px) 100vw, 50vw">
-          <img src="/static/images/worship/congregation-800w.jpg" alt="South Hills Church of Christ congregation gathered for worship" loading="lazy" width="800" height="533" class="img-card">
+          <img src="{{asset "images/worship/congregation-800w.jpg"}}" alt="South Hills Church of Christ congregation gathered for worship" loading="lazy" width="800" height="533" class="img-card">
         </picture>
       </div>
     </div>
@@ -118,7 +118,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Staff}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}, {{.Role}} at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
+        <img src="{{asset .Image}}" alt="{{.Name}}, {{.Role}} at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">{{.Role}}</p>
         <p class="leader-bio">{{.Bio}}</p>
@@ -130,7 +130,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Elders}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}, Elder at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
+        <img src="{{asset .Image}}" alt="{{.Name}}, Elder at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">Elder</p>
       </div>
@@ -141,7 +141,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Deacons}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}, Deacon of {{.Department}} at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
+        <img src="{{asset .Image}}" alt="{{.Name}}, Deacon of {{.Department}} at South Hills Church" class="leader-image" width="150" height="150" loading="lazy">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">{{.Department}}</p>
       </div>

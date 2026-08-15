@@ -1,0 +1,60 @@
+{{define "content"}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">Stay Connected</p>
+    <h1>The Weekly Newsletter</h1>
+    <p>What's coming up, who needs prayer, and what the Lord is doing among us — sent once a week.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <div class="two-column">
+      <div>
+        <p class="eyebrow">What You'll Get</p>
+        <h2>One Email a Week</h2>
+        <p>A short note from the congregation in Helena: service times, upcoming events, ministry news, and ways to serve or be served. Nothing else.</p>
+        <p>We never share your address, and you can leave whenever you like — every issue has an unsubscribe link at the bottom.</p>
+
+        <div class="info-card mt-md">
+          <p><strong>Sunday Bible Class:</strong> {{.Config.BibleClass}}</p>
+          <p><strong>Sunday Worship:</strong> {{.Config.Worship}}</p>
+        </div>
+      </div>
+
+      <div>
+        <h2 id="newsletter-heading" class="heading-normal">Sign Up</h2>
+
+        {{with .Newsletter}}
+        {{if .Notice}}
+        <p class="form-status-error" role="alert">{{.Notice}}</p>
+        {{end}}
+
+        <form class="contact-form" action="/newsletter/subscribe" method="POST" aria-labelledby="newsletter-heading">
+          <input type="hidden" name="ts" value="{{.FormTS}}">
+          <input type="hidden" name="src" value="{{.Source}}">
+
+          <div class="form-group">
+            <label for="newsletter-email">Email <span aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
+            <input type="email" id="newsletter-email" name="email" required maxlength="254"
+                   aria-required="true" autocomplete="email" inputmode="email"
+                   aria-describedby="newsletter-email-hint">
+            <small id="newsletter-email-hint" class="form-hint">We'll send one message to confirm it's really you.</small>
+          </div>
+
+          <!-- Honeypot: hidden from people, tempting to bots. -->
+          <div class="honeypot" aria-hidden="true">
+            <label for="phone2">Phone</label>
+            <input type="text" id="phone2" name="phone2" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-group btn-wrapper">
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </div>
+        </form>
+        {{end}}
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}

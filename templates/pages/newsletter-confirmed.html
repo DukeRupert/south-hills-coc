@@ -1,0 +1,24 @@
+{{define "content"}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">Welcome</p>
+    <h1>You're on the List</h1>
+    <p>The next newsletter will land in your inbox this week.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <p>Thanks for confirming. You'll hear from us once a week — service times, what's coming up, and news from the congregation. Every issue has an unsubscribe link at the bottom, so leaving is as easy as joining was.</p>
+
+    <div class="info-card mt-md">
+      <p><strong>Sunday Bible Class:</strong> {{.Config.BibleClass}}</p>
+      <p><strong>Sunday Worship:</strong> {{.Config.Worship}}</p>
+      <p>{{.Config.Address}}</p>
+    </div>
+
+    <p class="mt-lg">If you haven't visited yet, we'd love to meet you.</p>
+    <p class="mt-md"><a href="/visit/" class="btn btn-primary">Plan your visit</a></p>
+  </div>
+</section>
+{{end}}

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Go web server for South Hills Church of Christ (Helena, MT) using html/template, htmx, and Tailwind CSS. Contact form with Turnstile CAPTCHA and Postmark email. Deployed via Docker to a Hetzner VPS using GitHub Actions. Outer Caddy on host handles HTTPS/TLS, Go server in container handles everything else.
+Go web server for South Hills Church of Christ (Helena, MT) using html/template, htmx, and Tailwind CSS. Contact form with Turnstile CAPTCHA and Postmark email. Double opt-in newsletter list backed by embedded SQLite. Deployed via Docker to a Hetzner VPS using GitHub Actions. Outer Caddy on host handles HTTPS/TLS, Go server in container handles everything else.
 
 ## Build Commands
 
@@ -42,6 +42,9 @@ Internet → Outer Caddy (HTTPS) → Docker Container (HTTP:8082)
 - `internal/handlers/pages.go` - Page handler funcs (Home, About, etc.)
 - `internal/handlers/contact.go` - Contact form API (Turnstile + Postmark)
 - `internal/data/data.go` - Leadership + ministries YAML data (go:embed)
+- `internal/newsletter/` - Subscriber store (SQLite, embedded migrations)
+- `internal/mailer/` - Mailer interface, Postmark client, test fake
+- `internal/handlers/newsletter.go` - Signup/confirm/unsubscribe handlers, bot mitigation
 - `Dockerfile` - Three-stage build: Tailwind CSS → Go → Alpine final image
 - `docker-compose.yml` - Container config with env var passthrough
 
@@ -74,6 +77,13 @@ Internet → Outer Caddy (HTTPS) → Docker Container (HTTP:8082)
 | `/ministries/` | Ministries | ministries.html |
 | `/events/` | Events | events.html |
 | `/contact/` | Contact | contact.html |
+| `/newsletter/` | Newsletter | newsletter.html |
+| `POST /newsletter/subscribe` | HandleNewsletterSubscribe | newsletter-sent.html |
+| `GET /newsletter/confirm` | NewsletterConfirm | newsletter-confirm.html |
+| `POST /newsletter/confirm` | HandleNewsletterConfirm | newsletter-confirmed.html |
+| `GET /newsletter/unsubscribe` | NewsletterUnsubscribe | newsletter-unsubscribe.html |
+| `POST /newsletter/unsubscribe` | HandleNewsletterUnsubscribe | newsletter-unsubscribed.html |
+| `POST /newsletter/unsubscribe/one-click` | HandleNewsletterOneClick | - |
 | `POST /api/contact` | HandleContact | - |
 | `GET /api/health` | HandleHealth | - |
 
@@ -92,7 +102,66 @@ TO_EMAIL=                    # Recipient email
 ALLOWED_ORIGIN=              # CORS origin (e.g., https://www.southhillscoc.org)
 TURNSTILE_SECRET=            # Cloudflare Turnstile secret key
 TURNSTILE_SITE_KEY=          # Cloudflare Turnstile site key (has default)
+
+# Newsletter
+SITE_BASE_URL=               # Absolute, no trailing slash. All email links built from it.
+NEWSLETTER_DB_PATH=          # SQLite file (default data/newsletter.db)
+POSTMARK_SERVER_TOKEN=       # Falls back to POSTMARK_TOKEN
+POSTMARK_STREAM_TRANSACTIONAL=  # Default "outbound" — confirmation + welcome
+POSTMARK_STREAM_BROADCAST=      # Default "broadcast" — newsletters only
+NEWSLETTER_FROM_NAME=
+NEWSLETTER_FROM_ADDRESS=     # Falls back to FROM_EMAIL
+FORM_HMAC_SECRET=            # openssl rand -hex 32. Ephemeral if unset.
+TRUSTED_PROXY_COUNT=         # Default 2 (Cloudflare + Caddy). Picks the real IP from X-Forwarded-For.
+TEMPLATE_DIR=                # Default "templates". Overridable for tests.
+STATIC_DIR=                  # Default "static". Serving root + fingerprint source.
 ```
+
+## Static Assets
+
+Asset URLs are content-fingerprinted: `main.css` is served as
+`/static/css/main.ba010de3.css`, where the hash is the first 8 hex digits of
+the file's SHA-256. The index is built once at startup by walking `STATIC_DIR`
+(`internal/handlers/assets.go`).
+
+This exists because the site sits behind Cloudflare. With a stable filename an
+edge cache keeps serving the previous build for its full TTL, so a CSS fix can
+be invisible to visitors for hours after a green deploy. Fingerprinting makes
+a deploy self-invalidating — new bytes, new URL, no manual purge.
+
+- **Templates must use `{{asset "css/main.css"}}`**, never a literal
+  `/static/...` path. A literal path still works but drops to a 5-minute TTL
+  and goes stale behind the CDN. `asset` accepts a leading `/` and a `static/`
+  prefix, so `{{asset .Image}}` works on YAML-sourced paths.
+- **Cache-Control** is `public, max-age=31536000, immutable` for a hashed name,
+  `public, max-age=300` for a plain one. Both names serve the same file, so an
+  HTML page held in a browser tab across a deploy keeps working.
+- **HTML is `no-cache`.** The HTML names the hashed assets, so caching it would
+  pin visitors to the previous build's URLs.
+- `/favicon.ico` and `/robots.txt` are requested at fixed well-known paths and
+  cannot be fingerprinted.
+- Assets are read from disk, not `embed.FS` — Tailwind builds `main.css` in a
+  Docker stage after the Go build, so the file does not exist at compile time.
+
+## Newsletter
+
+Double opt-in list, under 100 subscribers by design — no queue, no worker pool.
+Rules that are easy to break by accident:
+
+- **GET never mutates.** Mail-provider link scanners prefetch URLs found in
+  email bodies. `/newsletter/confirm` and `/newsletter/unsubscribe` render a
+  page on GET and act only on POST.
+- **Responses never vary by subscriber state.** A new address, a subscribed
+  one, an unsubscribed one, and a honeypot-tripped bot all get the same bytes
+  back from the signup form, or it becomes an enumeration oracle.
+- **`MessageStream` is set explicitly on every send.** Omitting it silently
+  falls back to the transactional stream.
+- **`complained` is permanent.** The public form can never resurrect it.
+- **One-click unsubscribe carries no CSRF token** — it is POSTed by the
+  recipient's mail provider. Do not put it behind CSRF middleware.
+
+The SQLite file lives on the `newsletter-data` Docker volume. Migrations in
+`internal/newsletter/migrations/` run automatically at startup.
 
 Turnstile test keys for localhost:
 - Site Key: `1x00000000000000000000AA`
@@ -105,6 +174,10 @@ Pushes to `master` trigger GitHub Actions: builds Docker image → pushes to Doc
 Required GitHub secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`
 
 VPS location: `/opt/south-hills-coc/` with `docker-compose.yml` and `.env`
+
+The newsletter database persists on the `newsletter-data` named volume. After
+adding it, `docker-compose.yml` and `.env` on the VPS must be updated by hand —
+the deploy workflow only pulls a new image.
 
 ## Local Development
 

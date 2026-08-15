@@ -22,6 +22,11 @@ Thumbs.db
 /api/contact-api
 /server
 
+# Newsletter database (SQLite, lives on a volume in production)
+/data/*.db
+/data/*.db-wal
+/data/*.db-shm
+
 # Node
 node_modules/
 

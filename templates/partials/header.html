@@ -13,8 +13,8 @@
   <nav class="nav-container" aria-label="Main navigation">
     <a href="/" class="logo" aria-label="{{.Config.Title}} - Home">
       <picture>
-        <source type="image/webp" srcset="/static/images/logo-main.webp">
-        <img src="/static/images/logo-main.png" alt="South Hills Church of Christ" width="469" height="100">
+        <source type="image/webp" srcset="{{asset "images/logo-main.webp"}}">
+        <img src="{{asset "images/logo-main.png"}}" alt="South Hills Church of Christ" width="469" height="100">
       </picture>
       <span class="sr-only">South Hills Church of Christ</span>
     </a>

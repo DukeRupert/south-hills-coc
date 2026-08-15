@@ -128,12 +128,12 @@
       <div>
         <picture>
           <source type="image/webp"
-            srcset="/static/images/worship/congregation-400w.webp 400w,
-                    /static/images/worship/congregation-600w.webp 600w,
-                    /static/images/worship/congregation-800w.webp 800w,
-                    /static/images/worship/congregation-1200w.webp 1200w"
+            srcset="{{asset "images/worship/congregation-400w.webp"}} 400w,
+                    {{asset "images/worship/congregation-600w.webp"}} 600w,
+                    {{asset "images/worship/congregation-800w.webp"}} 800w,
+                    {{asset "images/worship/congregation-1200w.webp"}} 1200w"
             sizes="(max-width: 768px) 100vw, 50vw">
-          <img src="/static/images/worship/congregation-800w.jpg" alt="Church fellowship at South Hills" loading="lazy" width="800" height="533" class="img-card">
+          <img src="{{asset "images/worship/congregation-800w.jpg"}}" alt="Church fellowship at South Hills" loading="lazy" width="800" height="533" class="img-card">
         </picture>
       </div>
       <div>

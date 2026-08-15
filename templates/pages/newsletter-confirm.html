@@ -1,0 +1,58 @@
+{{define "content"}}
+{{with .Newsletter}}
+{{if eq .State "expired"}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">Newsletter</p>
+    <h1>That Link Has Expired</h1>
+    <p>Confirmation links are good for 48 hours, and this one is past that.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <p>No harm done — signing up again takes a moment and sends a fresh link.</p>
+    <p class="mt-md"><a href="/newsletter/" class="btn btn-primary">Sign up again</a></p>
+  </div>
+</section>
+
+{{else if eq .State "invalid"}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">Newsletter</p>
+    <h1>We Couldn't Use That Link</h1>
+    <p>It may already have been used, or been broken by your email program.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <p>If you've already confirmed, you're all set and there's nothing more to do. Otherwise, sign up again and we'll send a new link.</p>
+    <p class="mt-md"><a href="/newsletter/" class="btn btn-primary">Sign up again</a></p>
+    <div class="info-card mt-md">
+      <p>Stuck? Email <a href="mailto:{{$.Config.OfficeEmail}}">{{$.Config.OfficeEmail}}</a> and we'll add you by hand.</p>
+    </div>
+  </div>
+</section>
+
+{{else}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">One Last Step</p>
+    <h1>Confirm Your Subscription</h1>
+    <p>Press the button and you're on the list.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <form action="/newsletter/confirm" method="POST">
+      <input type="hidden" name="token" value="{{.Token}}">
+      <button type="submit" class="btn btn-primary">Confirm subscription</button>
+    </form>
+    <p class="mt-md">Didn't sign up for this? Close this page and nothing will happen.</p>
+  </div>
+</section>
+{{end}}
+{{end}}
+{{end}}

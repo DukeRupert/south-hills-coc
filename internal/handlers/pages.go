@@ -115,6 +115,7 @@ func (h *Handler) Sitemap(w http.ResponseWriter, r *http.Request) {
 		{"/ministries/", "monthly", "0.7"},
 		{"/events/", "weekly", "0.8"},
 		{"/contact/", "monthly", "0.7"},
+		{"/newsletter/", "monthly", "0.6"},
 	}
 
 	var urls []sitemapURL

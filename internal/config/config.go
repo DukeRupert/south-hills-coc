@@ -1,6 +1,10 @@
 package config
 
-import "os"
+import (
+	"os"
+	"strconv"
+	"strings"
+)
 
 type Config struct {
 	Port             string
@@ -38,6 +42,38 @@ type Config struct {
 	TurnstileSecret string
 
 	ICalFeedURL string
+
+	// SiteBaseURL is absolute and has no trailing slash. Every link placed in
+	// an email is built from it.
+	SiteBaseURL string
+	// TrustedProxyCount is how many reverse proxies sit in front of the app.
+	// It selects which X-Forwarded-For entry is the real client; see
+	// handlers.clientIP.
+	//
+	// Two, not one: Cloudflare proxies this domain and Caddy runs on the host,
+	// so the chain is client -> Cloudflare -> Caddy -> app and X-Forwarded-For
+	// arrives as "<visitor>, <cloudflare-edge>". Counting one proxy keys every
+	// rate-limit bucket on a Cloudflare edge IP shared by all visitors, which
+	// turns the per-IP limit into a second global one.
+	TrustedProxyCount int
+
+	// TemplateDir is where html/template files are read from. Overridable so
+	// tests can run from a package directory.
+	TemplateDir string
+
+	// StaticDir is where static assets are read from, both for serving and for
+	// building the fingerprint index. Overridable for the same reason.
+	StaticDir string
+
+	NewsletterDBPath      string
+	NewsletterFromName    string
+	NewsletterFromAddress string
+	// PostmarkServerToken defaults to PostmarkToken so an existing deployment
+	// keeps working without a .env rename.
+	PostmarkServerToken string
+	StreamTransactional string
+	StreamBroadcast     string
+	FormHMACSecret      string
 }
 
 func Load() *Config {
@@ -77,11 +113,33 @@ func Load() *Config {
 		TurnstileSecret: os.Getenv("TURNSTILE_SECRET"),
 
 		ICalFeedURL: os.Getenv("ICAL_FEED_URL"),
+
+		SiteBaseURL:       strings.TrimRight(envOr("SITE_BASE_URL", "https://www.southhillscoc.org"), "/"),
+		TrustedProxyCount: intEnvOr("TRUSTED_PROXY_COUNT", 2),
+
+		TemplateDir:           envOr("TEMPLATE_DIR", "templates"),
+		StaticDir:             envOr("STATIC_DIR", "static"),
+		NewsletterDBPath:      envOr("NEWSLETTER_DB_PATH", "data/newsletter.db"),
+		NewsletterFromName:    envOr("NEWSLETTER_FROM_NAME", "South Hills Church of Christ"),
+		NewsletterFromAddress: envOr("NEWSLETTER_FROM_ADDRESS", os.Getenv("FROM_EMAIL")),
+		PostmarkServerToken:   envOr("POSTMARK_SERVER_TOKEN", os.Getenv("POSTMARK_TOKEN")),
+		StreamTransactional:   envOr("POSTMARK_STREAM_TRANSACTIONAL", "outbound"),
+		StreamBroadcast:       envOr("POSTMARK_STREAM_BROADCAST", "broadcast"),
+		FormHMACSecret:        os.Getenv("FORM_HMAC_SECRET"),
 	}
 }
 
 func (c *Config) IsDev() bool {
 	return c.AppEnv == "development"
+}
+
+func intEnvOr(key string, fallback int) int {
+	if v := os.Getenv(key); v != "" {
+		if n, err := strconv.Atoi(v); err == nil && n >= 0 {
+			return n
+		}
+	}
+	return fallback
 }
 
 func envOr(key, fallback string) string {

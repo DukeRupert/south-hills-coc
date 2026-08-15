@@ -1,0 +1,24 @@
+{{define "content"}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">Newsletter</p>
+    <h1>Unsubscribe</h1>
+    <p>Press the button below and we'll stop sending the weekly newsletter.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <form action="/newsletter/unsubscribe" method="POST">
+      <input type="hidden" name="token" value="{{with .Newsletter}}{{.Token}}{{end}}">
+      <button type="submit" class="btn btn-primary">Unsubscribe me</button>
+    </form>
+
+    <p class="mt-lg">Changed your mind? Just close this page — nothing happens until you press the button.</p>
+
+    <div class="info-card mt-md">
+      <p>If it's the volume rather than the newsletter itself, email <a href="mailto:{{.Config.OfficeEmail}}">{{.Config.OfficeEmail}}</a> and tell us. We'd rather adjust than lose you.</p>
+    </div>
+  </div>
+</section>
+{{end}}

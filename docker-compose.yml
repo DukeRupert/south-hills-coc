@@ -15,4 +15,22 @@ services:
       - TURNSTILE_SITE_KEY=${TURNSTILE_SITE_KEY:-0x4AAAAAACHhuM2lhHmWLq04}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - ICAL_FEED_URL=${ICAL_FEED_URL}
+      # Newsletter
+      - SITE_BASE_URL=${SITE_BASE_URL:-https://www.southhillscoc.org}
+      - NEWSLETTER_DB_PATH=/app/data/newsletter.db
+      - NEWSLETTER_FROM_NAME=${NEWSLETTER_FROM_NAME:-South Hills Church of Christ}
+      - NEWSLETTER_FROM_ADDRESS=${NEWSLETTER_FROM_ADDRESS}
+      - POSTMARK_SERVER_TOKEN=${POSTMARK_SERVER_TOKEN}
+      - POSTMARK_STREAM_TRANSACTIONAL=${POSTMARK_STREAM_TRANSACTIONAL:-outbound}
+      - POSTMARK_STREAM_BROADCAST=${POSTMARK_STREAM_BROADCAST:-broadcast}
+      - FORM_HMAC_SECRET=${FORM_HMAC_SECRET}
+      # Reverse proxies in front of the app: Cloudflare + Caddy = 2. Picks the
+      # real client IP out of X-Forwarded-For for per-IP rate limiting.
+      - TRUSTED_PROXY_COUNT=${TRUSTED_PROXY_COUNT:-2}
+    volumes:
+      # The subscriber list must outlive the container.
+      - newsletter-data:/app/data
     restart: unless-stopped
+
+volumes:
+  newsletter-data:

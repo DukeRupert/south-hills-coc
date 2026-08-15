@@ -1,0 +1,22 @@
+{{define "content"}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">Newsletter</p>
+    <h1>You've Been Unsubscribed</h1>
+    <p>We won't send you the weekly newsletter again.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <p>Thank you for the time you gave it. The door stays open — you're welcome at {{.Config.Address}} any Sunday, whether or not you ever read another email from us.</p>
+
+    <div class="info-card mt-md">
+      <p><strong>Sunday Bible Class:</strong> {{.Config.BibleClass}}</p>
+      <p><strong>Sunday Worship:</strong> {{.Config.Worship}}</p>
+    </div>
+
+    <p class="mt-lg">Changed your mind later? You can always <a href="/newsletter/">sign up again</a>.</p>
+  </div>
+</section>
+{{end}}

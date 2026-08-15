@@ -3,8 +3,8 @@
   <div class="footer-container">
     <div class="footer-section">
       <picture>
-        <source type="image/webp" srcset="/static/images/logo-main.webp">
-        <img src="/static/images/logo-main.png" alt="South Hills Church of Christ" class="footer-logo" width="469" height="100">
+        <source type="image/webp" srcset="{{asset "images/logo-main.webp"}}">
+        <img src="{{asset "images/logo-main.png"}}" alt="South Hills Church of Christ" class="footer-logo" width="469" height="100">
       </picture>
       <p class="footer-tagline">{{.Config.Tagline}}</p>
       <p class="footer-welcome">Everyone is welcome. Come as you are.</p>
@@ -36,6 +36,7 @@
           <li><a href="{{.Config.GivingURL}}" target="_blank" rel="noopener" aria-label="Give Online (opens in new tab)">Give Online</a></li>
         {{end}}
         <li><a href="/contact/">Send Us a Message</a></li>
+        <li><a href="/newsletter/">Weekly Newsletter</a></li>
       </ul>
     </nav>
   </div>

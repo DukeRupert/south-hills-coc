@@ -8,7 +8,7 @@ COPY templates/ templates/
 RUN npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/main.css --minify
 
 # Stage 2: Build Go binary
-FROM golang:1.23-alpine AS go-builder
+FROM golang:1.25-alpine AS go-builder
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download

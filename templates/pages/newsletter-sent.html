@@ -1,0 +1,22 @@
+{{define "content"}}
+<div class="page-intro">
+  <div class="container">
+    <p class="eyebrow">Almost There</p>
+    <h1>Check Your Email</h1>
+    <p>If that address needs confirming, a short message is on its way.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container-prose">
+    <p>Open it and click <strong>Confirm subscription</strong>. That last step is how we know the address really belongs to you — until you click it, we won't send you anything else.</p>
+    <p>The link is good for 48 hours. If it doesn't turn up in a few minutes, have a look in your spam or promotions folder.</p>
+
+    <div class="info-card mt-md">
+      <p>Still nothing? Email us at <a href="mailto:{{.Config.OfficeEmail}}">{{.Config.OfficeEmail}}</a> or call {{.Config.Phone}} and we'll sort it out.</p>
+    </div>
+
+    <p class="mt-lg"><a href="/" class="btn-text">Back to the homepage</a></p>
+  </div>
+</section>
+{{end}}

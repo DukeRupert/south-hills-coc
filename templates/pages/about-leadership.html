@@ -14,7 +14,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Staff}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}, {{.Role}} at South Hills Church" class="leader-image">
+        <img src="{{asset .Image}}" alt="{{.Name}}, {{.Role}} at South Hills Church" class="leader-image">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">{{.Role}}</p>
         {{if .Bio}}<p class="leader-bio">{{.Bio}}</p>{{end}}
@@ -27,7 +27,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Elders}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}, Elder at South Hills Church" class="leader-image">
+        <img src="{{asset .Image}}" alt="{{.Name}}, Elder at South Hills Church" class="leader-image">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">Elder</p>
       </div>
@@ -38,7 +38,7 @@
     <div class="leadership-grid">
       {{range .Leadership.Deacons}}
       <div class="leader-card">
-        <img src="/static{{.Image}}" alt="{{.Name}}, Deacon of {{.Department}} at South Hills Church" class="leader-image">
+        <img src="{{asset .Image}}" alt="{{.Name}}, Deacon of {{.Department}} at South Hills Church" class="leader-image">
         <h3 class="leader-name">{{.Name}}</h3>
         <p class="leader-role">{{.Department}}</p>
       </div>
